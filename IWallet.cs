@@ -44,6 +44,9 @@ namespace VendingMachine
 
     public class NotAnoughCoinsException : Exception
     {
-        public NotAnoughCoinsException: base("Недостаточно монет для запрошенной суммы")
+        public NotAnoughCoinsException()
+            : base("Недостаточно монет для запрошенной суммы")
+        {
+        }
     }
 }
