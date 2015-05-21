@@ -28,6 +28,13 @@ public class Money
         Value = value;
     }
 
+    
+    public static readonly Money Zero = new Money(Currency.Rub, 0);
+
+    public static Money Rub(decimal value)
+    {
+        return new Money(global::Currency.Rub, value);
+    }
 
     //TODO: proper implementation
     public override bool Equals(object obj)

@@ -39,7 +39,13 @@ public class Coin
             return new Coin(value, grade);
         throw new CantFindGradeValueException(grade);
 	}
+
+    public static Coin One() { return Coin.Create(CoinGrade.One); }
+    public static Coin Two() { return Coin.Create(CoinGrade.Two); }
+    public static Coin Five() { return Coin.Create(CoinGrade.Five); }
+    public static Coin Ten() { return Coin.Create(CoinGrade.Ten); }
 }
+
 
 public class CantFindGradeValueException : Exception
 {

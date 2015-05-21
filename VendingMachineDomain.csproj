@@ -44,6 +44,7 @@
     <Compile Include="IProduct.cs" />
     <Compile Include="IShowcaseItem.cs" />
     <Compile Include="IVendingMachine.cs" />
+    <Compile Include="IWallet.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="Products\Coffe.cs" />
     <Compile Include="Products\CoffeWithMilk.cs" />
