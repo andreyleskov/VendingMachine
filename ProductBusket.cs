@@ -21,7 +21,15 @@ public class ProductBusket : IShowcaseItem
 
 	public IProduct Dispence()
 	{
+	    try
+	    {
+
 	        return _product.Pop();
+	    }
+	    catch (InvalidOperationException)
+	    {
+	        throw new BusketIsEmptyException();
+	    }
 	}
 
     public int Amount { get
@@ -37,10 +45,13 @@ public class ProductBusket : IShowcaseItem
 
     public int Number { get; private set; }
 
-    public IProduct Product { get
+    public IProduct Product
     {
-        return _product.Peek();
-    } }
+        get
+        {
+            return _product.Count > 0 ? _product.Peek() : null;
+        }
+    }
 
     public Money Cost { get; private set; }
 }

@@ -11,10 +11,10 @@ namespace VendingMachineTests
         [TestMethod]
         public void Coin_been_created_with_correct_value()
         {
-            Assert.AreEqual(1, Coin.Create(CoinGrade.One));
-            Assert.AreEqual(2, Coin.Create(CoinGrade.Two));
-            Assert.AreEqual(5, Coin.Create(CoinGrade.Five));
-            Assert.AreEqual(10, Coin.Create(CoinGrade.Ten));
+            Assert.AreEqual(new Money(Currency.Rub, 1),  Coin.Create(CoinGrade.One).Value);
+            Assert.AreEqual(new Money(Currency.Rub, 2),  Coin.Create(CoinGrade.Two).Value);
+            Assert.AreEqual(new Money(Currency.Rub, 5),  Coin.Create(CoinGrade.Five).Value);
+            Assert.AreEqual(new Money(Currency.Rub, 10), Coin.Create(CoinGrade.Ten).Value);
         }
 
         [TestMethod]
