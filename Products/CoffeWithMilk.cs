@@ -1,4 +1,4 @@
-﻿namespace VendingMachine
+﻿namespace VendingMachine.Domain.Products
 {
     public class CoffeWithMilk : IProduct
     {

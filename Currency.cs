@@ -1,5 +1,8 @@
-public enum Currency
+namespace VendingMachine.Domain
 {
-    Rub,
-    Fake
+    public enum Currency
+    {
+        Rub,
+        Fake
+    }
 }

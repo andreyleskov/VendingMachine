@@ -5,6 +5,9 @@ namespace VendingMachineTests
 {
     using System.Runtime.InteropServices;
 
+    using VendingMachine;
+    using VendingMachine.Domain;
+
     [TestClass]
     public class CoinTests
     {

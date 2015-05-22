@@ -9,7 +9,8 @@ namespace VendingMachineTests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using VendingMachine;
-
+    using VendingMachine.Domain;
+    using VendingMachine.Domain.Products;
 
     [TestClass]
     public class ProductBusketTests

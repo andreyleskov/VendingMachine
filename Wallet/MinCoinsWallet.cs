@@ -1,27 +1,26 @@
-namespace VendingMachine
+namespace VendingMachine.Domain.Wallet
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
     /// Кошелёк с логикой выдачи запрошенной суммы минимальным количеством монет. 
     /// </summary>
-    public class Wallet : IWallet
+    public class MinCoinsWallet : IWallet
     {
         readonly IDictionary<Money, List<Coin>> _coinsByValue = new SortedDictionary<Money, List<Coin>>();
 
-        public Wallet()
+        public MinCoinsWallet()
         {
-            Total = Money.Zero;
+            this.Total = Money.Zero;
         }
 
         public Coin[] GetMoney(Money amount)
         {
             IDictionary<Money, int> ret;
             var leftAmount = amount.Clone();
-            if(amount > Total)
+            if(amount > this.Total)
                 throw new NotAnoughMoneyException();
 
             //Набираем суммы самыми дорогими монетами, которые есть
@@ -46,7 +45,7 @@ namespace VendingMachine
                 result.AddRange(coins.Take(pair.Value));
                 coins.RemoveRange(0, pair.Value);
             }
-            CalcTotal();
+            this.CalcTotal();
             return result.ToArray();
         }
 
@@ -65,12 +64,12 @@ namespace VendingMachine
                 list.Add(coin);
             }
 
-            CalcTotal();
+            this.CalcTotal();
         }
 
         private void CalcTotal()
         {
-            Total = _coinsByValue.Values.SelectMany(v => v).Aggregate(Money.Zero,(a,coin) => a + coin.Value);
+            this.Total = this._coinsByValue.Values.SelectMany(v => v).Aggregate(Money.Zero,(a,coin) => a + coin.Value);
         }
 
         public Money Total { get; private set; }

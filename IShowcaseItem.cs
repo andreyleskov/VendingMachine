@@ -4,19 +4,18 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public interface IShowcaseItem 
+namespace VendingMachine.Domain
 {
-	int Amount { get;}
+    public interface IShowcaseItem 
+    {
+        int Amount { get;}
 
-	int Number { get; }
+        int Number { get; }
 
-	IProduct Product { get;}
+        IProduct Product { get;}
 
-    Money  Cost { get; }
+        Money  Cost { get; }
+    }
 }
 

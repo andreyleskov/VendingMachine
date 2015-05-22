@@ -1,9 +1,12 @@
-using System;
-
-public class BusketIsEmptyException : Exception
+namespace VendingMachine.Domain
 {
-    public BusketIsEmptyException():base("Диспенсер товаров пуст")
+    using System;
+
+    public class BusketIsEmptyException : Exception
     {
+        public BusketIsEmptyException():base("Диспенсер товаров пуст")
+        {
         
+        }
     }
 }

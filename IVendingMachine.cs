@@ -4,21 +4,22 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public interface IVendingMachine 
+namespace VendingMachine.Domain
 {
-	IDictionary<int, IShowcaseItem> Showcase { get;set; }
+    using System.Collections.Generic;
 
-	Money Balance {get;}
+    public interface IVendingMachine 
+    {
+        IDictionary<int, IShowcaseItem> Showcase { get;set; }
 
-	void Insert(Coin coin);
+        Money Balance {get;}
 
-	Coin[] GetChange();
+        void Insert(Coin coin);
 
-	IProduct Buy(int number);
+        Coin[] GetChange();
+
+        IProduct Buy(int number);
+    }
 }
 

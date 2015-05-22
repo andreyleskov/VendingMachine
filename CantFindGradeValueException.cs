@@ -1,9 +1,12 @@
-using System;
-
-public class CantFindGradeValueException : Exception
+namespace VendingMachine.Domain
 {
-    public CantFindGradeValueException(CoinGrade grade):base("Ќе удалось найти стоимость дл€ монеты " + grade)
+    using System;
+
+    public class CantFindGradeValueException : Exception
     {
+        public CantFindGradeValueException(CoinGrade grade):base("Ќе удалось найти стоимость дл€ монеты " + grade)
+        {
         
+        }
     }
 }

@@ -4,137 +4,129 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Money:IComparable
+namespace VendingMachine.Domain
 {
-    public readonly Currency Currency;
+    using System;
 
-    /// <summary>
-    ///  Value in smallest measure
-    /// </summary>
-    public readonly int Value;
-
-    public Money(Currency currency, int valueInMinUnits)
+    public class Money:IComparable
     {
-        Currency = currency;
-        Value = valueInMinUnits;
-    }
+        public readonly Currency Currency;
 
-    public static readonly Money Zero = new Money(Currency.Rub, 0);
+        /// <summary>
+        ///  Value in smallest measure
+        /// </summary>
+        public readonly int Value;
 
-    public static Money Rub(int rubles)
-    {
-        return new Money(global::Currency.Rub, rubles * 100);
-    }
+        public Money(Currency currency, int valueInMinUnits)
+        {
+            this.Currency = currency;
+            this.Value = valueInMinUnits;
+        }
 
-    private static void GuardCurrency(Money a, Money b)
-    {
-        if (a == null || b == null) return;
-        if (a.Currency != b.Currency) throw new MoneyCurrencyMismatchException();
-    }
-    public static int operator % (Money a, Money b)
-    {
-        GuardCurrency(a,b);
-        return (int) (a.Value % b.Value);
-    }
+        public static readonly Money Zero = new Money(Currency.Rub, 0);
 
-    public static int operator / (Money a, Money b)
-    {
-        GuardCurrency(a, b);
-        return (int)(a.Value / b.Value);
-    }
+        public static Money Rub(int rubles)
+        {
+            return new Money(global::VendingMachine.Domain.Currency.Rub, rubles * 100);
+        }
 
-    public static Money operator *(Money a, int b)
-    {
-        return new Money(a.Currency, a.Value * b);    
-    }
+        private static void GuardCurrency(Money a, Money b)
+        {
+            if (a == null || b == null) return;
+            if (a.Currency != b.Currency) throw new MoneyCurrencyMismatchException();
+        }
+        public static int operator % (Money a, Money b)
+        {
+            GuardCurrency(a,b);
+            return (int) (a.Value % b.Value);
+        }
 
-    public static Money operator -(Money a, Money b)
-    {
-        GuardCurrency(a,b);
-        return new Money(a.Currency, a.Value - b.Value);    
-    }
+        public static int operator / (Money a, Money b)
+        {
+            GuardCurrency(a, b);
+            return (int)(a.Value / b.Value);
+        }
 
-    public static bool operator > (Money a, Money b)
-    {
-        GuardCurrency(a, b);
-        return a.Value > b.Value;
-    }
+        public static Money operator *(Money a, int b)
+        {
+            return new Money(a.Currency, a.Value * b);    
+        }
 
-    public static bool operator == (Money a, Money b)
-    {
-        if ((object)a == null && (object)b == null) return true;
-        if ((object)a == null || (object)b == null) return false;
-        GuardCurrency(a, b);
-        return a.Value == b.Value;
-    }
+        public static Money operator -(Money a, Money b)
+        {
+            GuardCurrency(a,b);
+            return new Money(a.Currency, a.Value - b.Value);    
+        }
 
-    public static Money operator + (Money a, Money b)
-    {
-        GuardCurrency(a, b);
-        return new Money(a.Currency, a.Value + b.Value);
-    }
+        public static bool operator > (Money a, Money b)
+        {
+            GuardCurrency(a, b);
+            return a.Value > b.Value;
+        }
 
-    public static bool operator !=(Money a, Money b)
-    {
-        return !(a == b);
-    }
+        public static bool operator == (Money a, Money b)
+        {
+            if ((object)a == null && (object)b == null) return true;
+            if ((object)a == null || (object)b == null) return false;
+            GuardCurrency(a, b);
+            return a.Value == b.Value;
+        }
 
-    public static bool operator <(Money a, Money b)
-    {
-        return ! (a > b);
-    }
+        public static Money operator + (Money a, Money b)
+        {
+            GuardCurrency(a, b);
+            return new Money(a.Currency, a.Value + b.Value);
+        }
 
-    public static bool operator <= (Money a, Money b)
-    {
-        GuardCurrency(a, b);
-        return a.Value <= b.Value;
-    }
+        public static bool operator !=(Money a, Money b)
+        {
+            return !(a == b);
+        }
 
-    public static bool operator >= (Money a, Money b)
-    {
-        GuardCurrency(a, b);
-        return a.Value >= b.Value;
-    }
-    //TODO: proper implementation
-    public override bool Equals(object obj)
-    {
-        if(!(obj is Money)) return false;
-        Money otherMoney = (Money)obj;
+        public static bool operator <(Money a, Money b)
+        {
+            return ! (a > b);
+        }
 
-        return Currency.Equals(otherMoney.Currency) && otherMoney.Value.Equals(Value);
-    }
+        public static bool operator <= (Money a, Money b)
+        {
+            GuardCurrency(a, b);
+            return a.Value <= b.Value;
+        }
 
-    //TODO: proper implementation
-    public override int GetHashCode()
-    {
-        return Currency.GetHashCode() ^ Value.GetHashCode();
-    }
+        public static bool operator >= (Money a, Money b)
+        {
+            GuardCurrency(a, b);
+            return a.Value >= b.Value;
+        }
+        //TODO: proper implementation
+        public override bool Equals(object obj)
+        {
+            if(!(obj is Money)) return false;
+            Money otherMoney = (Money)obj;
 
-    public int CompareTo(object obj)
-    {
-        Money other = obj as Money;
-        if(other == null)return 1;
-        GuardCurrency(this, other);
-        return this.Value.CompareTo(other.Value);
+            return this.Currency.Equals(otherMoney.Currency) && otherMoney.Value.Equals(this.Value);
+        }
 
-    }
+        //TODO: proper implementation
+        public override int GetHashCode()
+        {
+            return this.Currency.GetHashCode() ^ this.Value.GetHashCode();
+        }
 
-    public Money Clone()
-    {
-        return (Money)this.MemberwiseClone();
+        public int CompareTo(object obj)
+        {
+            Money other = obj as Money;
+            if(other == null)return 1;
+            GuardCurrency(this, other);
+            return this.Value.CompareTo(other.Value);
+
+        }
+
+        public Money Clone()
+        {
+            return (Money)this.MemberwiseClone();
+        }
     }
 }
-
-public class MoneyCurrencyMismatchException : Exception
-{
-    public MoneyCurrencyMismatchException():base("Виды валют не совпадают")
-    {
-        
-    }
-}
-

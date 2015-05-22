@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31010.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachineDomain", "VendingMachineDomain.csproj", "{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Domain", "VendingMachine.Domain.csproj", "{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}"
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "VendinMachineDesing", "..\VendinMachineDesing\VendinMachineDesing.modelproj", "{EACBE032-500C-4B93-8E10-560FB6A5BBD0}"
 EndProject

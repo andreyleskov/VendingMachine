@@ -5,6 +5,8 @@ namespace VendingMachineTests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using VendingMachine;
+    using VendingMachine.Domain;
+    using VendingMachine.Domain.Wallet;
 
     [TestClass]
     public class WalletTests
@@ -13,14 +15,14 @@ namespace VendingMachineTests
         [TestMethod]
         public void Empty_wallet_has_zero_total()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             Assert.AreEqual(Money.Zero, wallet.Total);
         }
 
         [TestMethod]
         public void Wallet_take_money_by_minimal_coins_number()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             var walletCoins = new []{Coin.One(),
                                      Coin.One(),
                                      Coin.One(),
@@ -39,7 +41,7 @@ namespace VendingMachineTests
         [TestMethod]
         public void Emptied_wallet_has_zero_total()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             wallet.Put(Coin.One());
             wallet.GetMoney(Coin.One().Value);
             Assert.AreEqual(Money.Zero, wallet.Total);
@@ -48,7 +50,7 @@ namespace VendingMachineTests
         [TestMethod]
         public void Added_money_counts_in_total()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             wallet.Put(Coin.Ten());
             wallet.Put(Coin.One(),
                        Coin.Five());
@@ -59,7 +61,7 @@ namespace VendingMachineTests
         [TestMethod]
         public void Wallet_returns_added_coins()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             var coinsToAdd = new[] { Coin.Two(), Coin.Five() };
             wallet.Put(coinsToAdd);
             var coins = wallet.GetMoney(Money.Rub(7));
@@ -69,7 +71,7 @@ namespace VendingMachineTests
         [TestMethod]
         public void Wallet_doesnt_change_after_not_anough_coins_error_occured()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             wallet.Put(Coin.Two(), Coin.Five());
 
             try
@@ -86,7 +88,7 @@ namespace VendingMachineTests
         [TestMethod]
         public void Wallet_cant_return_coins_it_doesnt_have()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             var coinsToAdd = new[] { Coin.Five(), Coin.Five() };
             wallet.Put(coinsToAdd);
             //TODO: убрать try
@@ -104,7 +106,7 @@ namespace VendingMachineTests
         [TestMethod]
         public void Left_money_counts_in_total()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             wallet.Put(Coin.Ten());
             wallet.Put(Coin.One(),
                 Coin.Five());
@@ -117,7 +119,7 @@ namespace VendingMachineTests
         [TestMethod]
         public void Cant_get_money_from_empy_wallet()
         {
-            var wallet = new Wallet();
+            var wallet = new MinCoinsWallet();
             //TODO: убрать TODO
             try
             {
