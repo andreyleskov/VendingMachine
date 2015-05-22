@@ -55,11 +55,3 @@ public class ProductBusket : IShowcaseItem
 
     public Money Cost { get; private set; }
 }
-
-public class BusketIsEmptyException : Exception
-{
-    public BusketIsEmptyException():base("Диспенсер товаров пуст")
-    {
-        
-    }
-}
