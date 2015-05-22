@@ -18,6 +18,25 @@ namespace VendingMachineTests
         }
 
         [TestMethod]
+        public void Wallet_take_money_by_minimal_coins_number()
+        {
+            var wallet = new Wallet();
+            var walletCoins = new []{Coin.One(),
+                                     Coin.One(),
+                                     Coin.One(),
+                                     Coin.One(),
+                                     Coin.One(),
+                                     Coin.Two(),
+                                     Coin.Two(),
+                                     Coin.Two()};
+                         
+            wallet.Put(walletCoins);
+            var coins = wallet.GetMoney(Money.Rub(5));
+            var expectedCoins = new[] { walletCoins[5],walletCoins[6],walletCoins[0]};
+            CollectionAssert.AreEquivalent(expectedCoins, coins);
+        }
+
+        [TestMethod]
         public void Emptied_wallet_has_zero_total()
         {
             var wallet = new Wallet();
@@ -50,7 +69,18 @@ namespace VendingMachineTests
         [TestMethod]
         public void Wallet_doesnt_change_after_not_anough_coins_error_occured()
         {
-            throw new NotImplementedException();
+            var wallet = new Wallet();
+            wallet.Put(Coin.Two(), Coin.Five());
+
+            try
+            {
+                 wallet.GetMoney(Money.Rub(10));
+            }
+            catch (NotAnoughMoneyException)
+            {
+            }
+
+            Assert.AreEqual(Money.Rub(7), wallet.Total);
         }
 
         [TestMethod]

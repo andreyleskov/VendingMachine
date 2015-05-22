@@ -40,6 +40,14 @@ public class Coin
         throw new CantFindGradeValueException(grade);
 	}
 
+    public override bool Equals(object obj)
+    {
+        var coin = obj as Coin;
+        if (coin == null) return false;
+
+        return coin.Grade.Equals(this.Grade) && coin.Value.Equals(this.Value);
+    }
+
     public static Coin One() { return Coin.Create(CoinGrade.One); }
     public static Coin Two() { return Coin.Create(CoinGrade.Two); }
     public static Coin Five() { return Coin.Create(CoinGrade.Five); }
