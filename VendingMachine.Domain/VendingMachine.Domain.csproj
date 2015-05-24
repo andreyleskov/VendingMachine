@@ -53,6 +53,7 @@
     <Compile Include="IWallet.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="MoneyCurrencyMismatchException.cs" />
+    <Compile Include="VendingMachine.cs" />
     <Compile Include="Wallet\NotAnoughCoinsException.cs" />
     <Compile Include="Wallet\NotAnoughMoneyException.cs" />
     <Compile Include="Products\Coffe.cs" />

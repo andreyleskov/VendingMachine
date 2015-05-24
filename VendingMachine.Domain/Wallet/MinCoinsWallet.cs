@@ -9,11 +9,15 @@ namespace VendingMachine.Domain.Wallet
     /// </summary>
     public class MinCoinsWallet : IWallet
     {
-        readonly IDictionary<Money, List<Coin>> _coinsByValue = new SortedDictionary<Money, List<Coin>>();
+        private readonly IDictionary<Money, List<Coin>> _coinsByValue;
 
-        public MinCoinsWallet()
+        public MinCoinsWallet(params Coin[] coins)
         {
-            this.Total = Money.Zero;
+            var coinPiles = coins.GroupBy(c => c.Value)
+                                 .ToDictionary(g => g.Key, g => g.ToList());
+            _coinsByValue = new SortedDictionary<Money, List<Coin>>(coinPiles);
+
+            this.CalcTotal();
         }
 
         public Coin[] GetMoney(Money amount)

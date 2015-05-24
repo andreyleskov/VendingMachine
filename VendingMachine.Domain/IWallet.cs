@@ -1,6 +1,6 @@
 ﻿namespace VendingMachine.Domain
 {
-    interface IWallet
+    public interface IWallet
     {
         Coin[] GetMoney(Money amount);
 

@@ -11,7 +11,7 @@ namespace VendingMachine.Domain
 
     public interface IVendingMachine 
     {
-        IDictionary<int, IShowcaseItem> Showcase { get;set; }
+        IReadOnlyList<IShowcaseItem> Showcase { get;}
 
         Money Balance {get;}
 
@@ -20,28 +20,6 @@ namespace VendingMachine.Domain
         Coin[] GetChange();
 
         IProduct Buy(int number);
-    }
-
-    public class VendingMachine : IVendingMachine
-    {
-        public IDictionary<int, IShowcaseItem> Showcase { get; set; }
-
-        public Money Balance { get; private set; }
-
-        public void Insert(Coin coin)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Coin[] GetChange()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IProduct Buy(int number)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
 
