@@ -1,17 +1,18 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace VendingMachineTests
+namespace VendingMachine.Tests
 {
     using System.Runtime.InteropServices;
 
-    using VendingMachine;
+    using NUnit.Framework;
+
     using VendingMachine.Domain;
 
-    [TestClass]
+
+    [TestFixture]
     public class CoinTests
     {
-        [TestMethod]
+        [Test]
         public void Coin_been_created_with_correct_value()
         {
             Assert.AreEqual(new Money(Currency.Rub, 1),  Coin.Create(CoinGrade.One).Value);
@@ -20,7 +21,7 @@ namespace VendingMachineTests
             Assert.AreEqual(new Money(Currency.Rub, 10), Coin.Create(CoinGrade.Ten).Value);
         }
 
-        [TestMethod]
+        [Test]
         public void Coin_creates_with_right_grade()
         {
             foreach (var grade in new[] { CoinGrade.One, 

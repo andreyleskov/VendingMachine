@@ -1,27 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VendingMachine.Domain.Domain.Tests
+﻿namespace VendingMachine.Tests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     using VendingMachine.Domain;
     using VendingMachine.Domain.Products;
 
-    [TestClass]
+    [TestFixture]
     public class ProductBusketTests
     {
-        [TestMethod]
-        public void Added_product_can_be_dispensed()
-        {
-            
-        }
 
         //TODO: убрать try\catch
-        [TestMethod]
+        [Test]
         public void Cant_dispense_more_than_existing_products()
         {
             var busket = new ProductBusket(1, new Money(Currency.Fake, 1));
@@ -41,7 +30,7 @@ namespace VendingMachine.Domain.Domain.Tests
         }
 
         //TODO: разделить на два теста
-        [TestMethod]
+        [Test]
         public void Emptied_busket_has_valid_properies()
         {
             var busket = new ProductBusket(1, new Money(Currency.Fake, 1));
@@ -52,7 +41,7 @@ namespace VendingMachine.Domain.Domain.Tests
         }
 
 
-        [TestMethod]
+        [Test]
         public void Busket_dispense_added_product()
         {
             var busket = new ProductBusket(1, new Money(Currency.Fake, 1));
@@ -63,7 +52,7 @@ namespace VendingMachine.Domain.Domain.Tests
         }
 
 
-        [TestMethod]
+        [Test]
         public void Busket_counts_added_product()
         {
             var busket = new ProductBusket(1, new Money(Currency.Fake, 1));
@@ -75,7 +64,7 @@ namespace VendingMachine.Domain.Domain.Tests
 
 
 
-        [TestMethod]
+        [Test]
         public void Busket_displas_last_added_product()
         {
             var busket = new ProductBusket(1, new Money(Currency.Fake, 1));
@@ -92,7 +81,7 @@ namespace VendingMachine.Domain.Domain.Tests
 
 
         //TODO: убрать try\catch
-        [TestMethod]
+        [Test]
         public void Cant_dispense_from_empty_busket()
         {
             var busket = new ProductBusket(1, new Money(Currency.Fake, 1));

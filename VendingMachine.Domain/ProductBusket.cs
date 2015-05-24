@@ -5,7 +5,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VendingMachine.Domain
+namespace VendingMachine .Domain
 {
     using System;
     using System.Collections.Generic;

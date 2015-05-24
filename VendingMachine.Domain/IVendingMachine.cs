@@ -21,5 +21,27 @@ namespace VendingMachine.Domain
 
         IProduct Buy(int number);
     }
+
+    public class VendingMachine : IVendingMachine
+    {
+        public IDictionary<int, IShowcaseItem> Showcase { get; set; }
+
+        public Money Balance { get; private set; }
+
+        public void Insert(Coin coin)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Coin[] GetChange()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IProduct Buy(int number)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
 
