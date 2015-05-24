@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31010.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Domain", "VendingMachine.Domain.csproj", "{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Domain", "VendingMachine.Domain\VendingMachine.Domain.csproj", "{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}"
 EndProject
-Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "VendinMachineDesing", "..\VendinMachineDesing\VendinMachineDesing.modelproj", "{EACBE032-500C-4B93-8E10-560FB6A5BBD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Tests", "VendingMachine.Tests\VendingMachine.Tests.csproj", "{ECE575F4-B753-4928-9905-83C90A6527DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendinMachineDesingLib", "..\VendinMachineDesingLib\VendinMachineDesingLib.csproj", "{9E55CE6C-0589-44CC-B93E-DD41361F08DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachineTests", "VendingMachineTests\VendingMachineTests.csproj", "{ECE575F4-B753-4928-9905-83C90A6527DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.UI", "VendingMachine.UI\VendingMachine.UI.csproj", "{CDE14600-590C-4560-A5EA-0E5A3DB7AA63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +19,14 @@ Global
 		{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EACBE032-500C-4B93-8E10-560FB6A5BBD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EACBE032-500C-4B93-8E10-560FB6A5BBD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EACBE032-500C-4B93-8E10-560FB6A5BBD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EACBE032-500C-4B93-8E10-560FB6A5BBD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E55CE6C-0589-44CC-B93E-DD41361F08DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E55CE6C-0589-44CC-B93E-DD41361F08DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E55CE6C-0589-44CC-B93E-DD41361F08DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E55CE6C-0589-44CC-B93E-DD41361F08DC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECE575F4-B753-4928-9905-83C90A6527DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECE575F4-B753-4928-9905-83C90A6527DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECE575F4-B753-4928-9905-83C90A6527DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECE575F4-B753-4928-9905-83C90A6527DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDE14600-590C-4560-A5EA-0E5A3DB7AA63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE14600-590C-4560-A5EA-0E5A3DB7AA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE14600-590C-4560-A5EA-0E5A3DB7AA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE14600-590C-4560-A5EA-0E5A3DB7AA63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

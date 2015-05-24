@@ -60,7 +60,7 @@
     <Compile Include="WalletTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VendingMachine.Domain.csproj">
+    <ProjectReference Include="..\VendingMachine.Domain\VendingMachine.Domain.csproj">
       <Project>{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}</Project>
       <Name>VendingMachine.Domain</Name>
     </ProjectReference>

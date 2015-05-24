@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VendingMachineTests
+namespace VendingMachine.Domain.Domain.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    using VendingMachine;
     using VendingMachine.Domain;
     using VendingMachine.Domain.Products;
 
