@@ -19,7 +19,7 @@ namespace VendingMachine.Domain
 
         Coin[] GetChange();
 
-        IProduct Buy(int number);
+        IProduct Sell(int number);
     }
 }
 

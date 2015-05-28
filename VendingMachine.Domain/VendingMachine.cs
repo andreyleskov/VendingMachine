@@ -10,7 +10,7 @@ namespace VendingMachine.Domain
 
     using global::VendingMachine.Domain.Wallet;
 
-    public class VendingMachine : IVendingMachine
+    public class NumpadVendingMachine : IVendingMachine
     {
         public IReadOnlyList<IShowcaseItem> Showcase
         {
@@ -20,53 +20,41 @@ namespace VendingMachine.Domain
             }
         }
 
-        public Money Balance
-        {
-            get
-            {
-                return _customerWallet.Total;
-            }
-        }
-
-        private readonly IWallet _customerWallet;
+        public Money Balance { get; private set; }
 
         private readonly IWallet _machineWallet;
 
         private readonly IDictionary<int, ProductBusket> _buskets;
 
-        public VendingMachine(IEnumerable<ProductBusket> buskets,
-                              IWallet machineWallet,
-                              IWallet customerWallet)
+        public NumpadVendingMachine(IEnumerable<ProductBusket> buskets,
+                              IWallet machineWallet)
         {
             this._buskets = buskets.ToDictionary(b => b.Number, b => b);
             this._machineWallet = machineWallet;
-            this._customerWallet = customerWallet;
         }
 
         public void Insert(Coin coin)
         {
-            _customerWallet.Put(coin);
+            _machineWallet.Put(coin);
+            Balance += coin.Value;
         }
 
         public Coin[] GetChange()
         {
-            return _customerWallet.GetMoney(_customerWallet.Total);
+            return _machineWallet.GetMoney(Balance);
         }
 
-        public IProduct Buy(int number)
+        public IProduct Sell(int number)
         {
             ProductBusket busket;
             if (!_buskets.TryGetValue(number, out busket)) throw new InvalidProductNumberException(number);
-            if(_customerWallet.Total < busket.Cost) throw new NotAnoughMoneyException();
-
-            var customerTotal = _customerWallet.Total;
-            _machineWallet.Put(_customerWallet.GetMoney(_customerWallet.Total));
-            var change = _machineWallet.GetMoney(customerTotal - busket.Cost);
-            _customerWallet.Put(change);
-
+            if(Balance < busket.Cost) throw new NotAnoughMoneyException();
+            
             try
             {
-                return busket.Dispence();
+               var product = busket.Dispence();
+               Balance -= busket.Cost;
+               return product;
             }
             catch (BusketIsEmptyException)
             {
@@ -74,7 +62,6 @@ namespace VendingMachine.Domain
             }
         }
     }
-
 }
 
 public class ProductIsOutOfStockException : Exception

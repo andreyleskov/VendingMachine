@@ -63,13 +63,13 @@
     <Compile Include="WalletTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VendingMachine.Domain\VendingMachine.Domain.csproj">
-      <Project>{F269D5C3-A5CB-4AF2-8798-6FE45BD0258D}</Project>
-      <Name>VendingMachine.Domain</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\VendingMachine.Domain\VendingMachine.Domain.csproj">
+      <Project>{f269d5c3-a5cb-4af2-8798-6fe45bd0258d}</Project>
+      <Name>VendingMachine.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

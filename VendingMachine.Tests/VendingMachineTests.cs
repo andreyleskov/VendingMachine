@@ -16,10 +16,9 @@ namespace VendingMachine.Tests
     public class VendingMachineTests
     {
 
-        private VendingMachine CreateMachine(params ProductBusket[] buskets)
+        private NumpadVendingMachine CreateMachine(params ProductBusket[] buskets)
         {
-            return new VendingMachine(buskets,
-                                      new MinCoinsWallet(), 
+            return new NumpadVendingMachine(buskets,
                                       new MinCoinsWallet());    
         }
 
@@ -42,7 +41,7 @@ namespace VendingMachine.Tests
             machine.Insert(Coin.One());
             machine.Insert(Coin.One());
 
-            machine.Buy(1);
+            machine.Sell(1);
 
             Assert.AreEqual(Money.Rub(1),machine.Balance);
         }
@@ -52,12 +51,11 @@ namespace VendingMachine.Tests
         {
             var machineInitialCoins = new[] { Coin.One(), Coin.Five() };
 
-            var machine = new VendingMachine(
+            var machine = new NumpadVendingMachine(
                                             new [] {this.CreateBusket<Tea>(1, Money.Rub(4), 1)},
-                                            new MinCoinsWallet(machineInitialCoins),
-                                            new MinCoinsWallet());
+                                            new MinCoinsWallet(machineInitialCoins));
             machine.Insert(Coin.Ten());
-            machine.Buy(1);
+            machine.Sell(1);
             var change = machine.GetChange();
 
             CollectionAssert.AreEquivalent(machineInitialCoins, change);
