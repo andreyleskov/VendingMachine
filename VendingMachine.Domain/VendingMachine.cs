@@ -27,10 +27,11 @@ namespace VendingMachine.Domain
         private readonly IDictionary<int, ProductBusket> _buskets;
 
         public NumpadVendingMachine(IEnumerable<ProductBusket> buskets,
-                              IWallet machineWallet)
+                                    IWallet machineWallet)
         {
             this._buskets = buskets.ToDictionary(b => b.Number, b => b);
             this._machineWallet = machineWallet;
+            Balance = Money.Zero;
         }
 
         public void Insert(Coin coin)
