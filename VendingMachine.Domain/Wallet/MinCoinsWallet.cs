@@ -77,5 +77,13 @@ namespace VendingMachine.Domain.Wallet
         }
 
         public Money Total { get; private set; }
+
+        public Coin[] Coins 
+        { 
+            get
+            {
+                return _coinsByValue.Values.SelectMany(c => c).ToArray();
+            }
+        }
     }
 }

@@ -7,5 +7,7 @@
         void Put(params Coin[] coin);
 
         Money Total { get; }
+
+        Coin[] Coins { get; }
     }
 }

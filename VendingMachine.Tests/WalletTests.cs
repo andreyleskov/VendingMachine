@@ -21,6 +21,19 @@ namespace VendingMachine.Tests
         }
 
         [Test]
+        public void Wallet_shows_coins_that_it_contains()
+        {
+            var wallet = new MinCoinsWallet();
+ 
+            var coins = new []{Coin.Five(),Coin.Ten()};
+
+            wallet.Put(coins[0]);
+            wallet.Put(coins[1]);
+
+            CollectionAssert.AreEquivalent(coins, wallet.Coins);
+        }
+
+        [Test]
         public void Wallet_take_money_by_minimal_coins_number()
         {
             var wallet = new MinCoinsWallet();

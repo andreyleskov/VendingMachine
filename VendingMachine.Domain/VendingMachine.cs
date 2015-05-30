@@ -26,8 +26,8 @@ namespace VendingMachine.Domain
 
         private readonly IDictionary<int, ProductBusket> _buskets;
 
-        public NumpadVendingMachine(IEnumerable<ProductBusket> buskets,
-                                    IWallet machineWallet)
+        public NumpadVendingMachine( IWallet machineWallet,
+                                     params ProductBusket[] buskets)
         {
             this._buskets = buskets.ToDictionary(b => b.Number, b => b);
             this._machineWallet = machineWallet;

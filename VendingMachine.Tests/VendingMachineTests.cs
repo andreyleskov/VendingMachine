@@ -18,8 +18,8 @@ namespace VendingMachine.Tests
 
         private NumpadVendingMachine CreateMachine(params ProductBusket[] buskets)
         {
-            return new NumpadVendingMachine(buskets,
-                                      new MinCoinsWallet());    
+            return new NumpadVendingMachine(new MinCoinsWallet(),
+                                            buskets);    
         }
 
         private ProductBusket CreateBusket<T>(int number, Money cost, int amount) where T : IProduct, new()
@@ -51,9 +51,8 @@ namespace VendingMachine.Tests
         {
             var machineInitialCoins = new[] { Coin.One(), Coin.Five() };
 
-            var machine = new NumpadVendingMachine(
-                                            new [] {this.CreateBusket<Tea>(1, Money.Rub(4), 1)},
-                                            new MinCoinsWallet(machineInitialCoins));
+            var machine = new NumpadVendingMachine( new MinCoinsWallet(machineInitialCoins),
+                                                    this.CreateBusket<Tea>(1, Money.Rub(4), 1));
             machine.Insert(Coin.Ten());
             machine.Sell(1);
             var change = machine.GetChange();

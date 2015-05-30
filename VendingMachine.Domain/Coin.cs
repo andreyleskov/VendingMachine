@@ -7,7 +7,9 @@
 
 namespace VendingMachine.Domain
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Coin
     {
@@ -26,9 +28,35 @@ namespace VendingMachine.Domain
             return coin.Value.Equals(this.Value);
         }
 
-        public static Coin One()  { return new Coin(new Money(Currency.Rub, 100 ));}
-        public static Coin Two()  { return new Coin(new Money(Currency.Rub, 200 ));}
-        public static Coin Five() { return new Coin(new Money(Currency.Rub, 500 ));}
-        public static Coin Ten()  { return new Coin(new Money(Currency.Rub, 1000));}
+        public static Coin One()  { return new Coin(new Money(Currency.Rub, 100)); }
+        public static Coin Two()  { return new Coin(new Money(Currency.Rub, 200)); }
+        public static Coin Five() { return new Coin(new Money(Currency.Rub, 500)); }
+        public static Coin Ten()  { return new Coin(new Money(Currency.Rub, 1000)); }
+
+
+
+
+        public class CoinPileBuilder
+        {
+            private readonly List<Coin> _coins = new List<Coin>();
+
+            private Func<Coin> _coinCreator;
+
+            public static CoinPileBuilder New()
+            {
+                return new CoinPileBuilder();
+            }
+            public CoinPileBuilder PileOf(Func<Coin> _coinCreator)
+            {
+                this._coinCreator = _coinCreator;
+                return this;
+            }
+
+            public CoinPileBuilder Take(int count)
+            {
+                _coins.AddRange(Enumerable.Range(1, count).Select(c => _coinCreator()));
+                return this;
+            }
+        }
     }
 }
