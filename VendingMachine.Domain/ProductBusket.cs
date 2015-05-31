@@ -10,6 +10,8 @@ namespace VendingMachine .Domain
     using System;
     using System.Collections.Generic;
 
+    using VendingMachine.Domain.Products;
+
     public class ProductBusket : IShowcaseItem
     {
 
@@ -54,5 +56,13 @@ namespace VendingMachine .Domain
         }
 
         public Money Cost { get; private set; }
+
+
+        public static ProductBusket Of<T>(int number, Money cost, int amount) where T : IProduct, new()
+        {
+            var buskt = new ProductBusket(number, cost);
+            for(int n=0; n < amount; n++) buskt.Add(new T());
+            return buskt;
+        }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,18 +9,9 @@ namespace VendingMachine.UI
 
     using VendingMachine.Domain;
 
-    public static class CoinExtensions
-    {
-        public static IEnumerable<CoinPile> ToPiles(this IEnumerable<Coin> coins)
-        {
-            return coins.GroupBy(c => c.Value).Select(g => new CoinPile() { Value = g.Key, Amount = g.Count() });
-        }   
-    }
-
-    class MainWindowViewModel
+    public class MainWindowViewModel
     {
         private IVendingMachine _machine;
-
         private IWallet _customerWallet;
         private IWallet _machineWallet;
 
@@ -45,5 +34,12 @@ namespace VendingMachine.UI
             CustomerCoins = new ObservableCollection<CoinPile>(customerWallet.Coins.ToPiles());
         }
 
+        public string Title
+        {
+            get
+            {
+                return "It's alive!";
+            }
+        }
     }
 }

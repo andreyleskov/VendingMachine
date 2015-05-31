@@ -4,29 +4,29 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class CoinBuilder
+    public class CoinsBuilder
     {
         private readonly List<Coin> _coins = new List<Coin>();
 
         private Func<Coin> _coinCreator;
 
-        public static CoinBuilder New()
+        public static CoinsBuilder New()
         {
-            return new CoinBuilder();
+            return new CoinsBuilder();
         }
-        public CoinBuilder PileOf(Func<Coin> coinCreator)
+        public CoinsBuilder PileOf(Func<Coin> coinCreator)
         {
             this._coinCreator = coinCreator;
             return this;
         }
 
-        public CoinBuilder Take(int count)
+        public CoinsBuilder Size(int count)
         {
             this._coins.AddRange(Enumerable.Range(1, count).Select(c => this._coinCreator()));
             return this;
         }
 
-        public Coin[] Create()
+        public Coin[] GetCoins()
         {
             return _coins.ToArray();
         }

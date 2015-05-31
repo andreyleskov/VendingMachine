@@ -46,6 +46,7 @@
     <Compile Include="CantFindGradeValueException.cs" />
     <Compile Include="Coin.cs" />
     <Compile Include="CoinGrade.cs" />
+    <Compile Include="CoinsBuilder.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="IShowcaseItem.cs" />
