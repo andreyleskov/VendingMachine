@@ -85,7 +85,6 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="CoinExtensions.cs" />
     <Compile Include="CoinPile.cs" />
     <Compile Include="DesignTimeMainWindowViewModel.cs" />

@@ -24,10 +24,10 @@ namespace VendingMachine.UI
 
         static CoinPile()
         {
-            CoinImagesPaths[Coin.One().Value]  = "/AssemblyName;component/Images/1_coin.png"; 
-            CoinImagesPaths[Coin.Two().Value]  = "/AssemblyName;component/Images/2_coin.png"; 
-            CoinImagesPaths[Coin.Five().Value] = "/AssemblyName;component/Images/5_coin.png"; 
-            CoinImagesPaths[Coin.Ten().Value]  = "/AssemblyName;component/Images/10_coin.png"; 
+            CoinImagesPaths[Coin.One().Value]  = "/VendingMachine.UI;component/Images/1_coin.png"; 
+            CoinImagesPaths[Coin.Two().Value]  = "/VendingMachine.UI;component/Images/2_coin.png"; 
+            CoinImagesPaths[Coin.Five().Value] = "/VendingMachine.UI;component/Images/5_coin.png"; 
+            CoinImagesPaths[Coin.Ten().Value]  = "/VendingMachine.UI;component/Images/10_coin.png"; 
         }
     }
 }

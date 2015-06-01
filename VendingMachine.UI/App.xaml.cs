@@ -21,7 +21,7 @@ namespace VendingMachine.UI
         {
             base.OnStartup(e);
             var mainWindow = this.ComposeApp();
-            mainWindow.Show();
+            mainWindow.ShowDialog();
         }
 
         private MainWindow ComposeApp()

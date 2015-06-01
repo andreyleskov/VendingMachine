@@ -28,7 +28,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}"></Image>
+                            <Image Source="{Binding ImagePath}" Height="30"></Image>
                             <TextBlock Text="{Binding Name}"/>
                             <Label>Modified</Label>
                             <TextBlock Text="{Binding LastModified}"/>
