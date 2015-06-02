@@ -23,7 +23,7 @@
 
             CustomerWallet = new MinCoinsWallet(CoinsBuilder.New().PileOf(Coin.One).Size(10)
                                                                   .PileOf(Coin.Five).Size(3)
-                                                                  .PileOf(Coin.Ten).Size(2)
+                                                                  .PileOf(Coin.Ten).Size(20)
                                                            .GetCoins());
 
             Machine = new NumpadVendingMachine(MachineWallet, new []

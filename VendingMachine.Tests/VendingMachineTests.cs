@@ -91,5 +91,14 @@ namespace VendingMachine.Tests
             Assert.AreEqual(Money.Zero, machine.Balance);
 
         }
+
+        [Test]
+        public void VendingMachine_dont_sell_when_not_anough_money()
+        {
+            var machine = this.CreateMachine(ProductBusket.Of<Tea>(1,Money.Rub(10),1));
+
+            machine.Insert(Coin.One());
+            Assert.Throws<NotAnoughMoneyException>(() => machine.Sell(1));
+        }
     }
 }

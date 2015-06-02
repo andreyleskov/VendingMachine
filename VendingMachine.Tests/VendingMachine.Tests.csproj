@@ -60,7 +60,7 @@
     <Compile Include="ProductBusketTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VendingMachineTests.cs" />
-    <Compile Include="ViewModelTests\EmptyCoinPile_dissapears_from_customer_wallet.cs" />
+    <Compile Include="MainWindowViewModelTests.cs" />
     <Compile Include="WalletTests.cs" />
   </ItemGroup>
   <ItemGroup>

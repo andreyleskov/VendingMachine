@@ -59,5 +59,47 @@ namespace VendingMachine.Tests.ViewModelTests
 
             viewModel.Balance.ShouldEqual(customerCoinPile.Coin.Value * 3);
         }
+
+        [Test]
+        public void Buying_Product_reducing_its_amount()
+        {
+            var viewModel = GetModelWithCoins();
+            var productViewModel = viewModel.MachineProducts.First(p => p.Number == 1);
+            var productAmount = productViewModel.Amount - 1;
+            viewModel.BuyProductCommand.Execute(1);
+
+            productAmount.ShouldEqual(productViewModel.Amount);
+        }
+
+        [Test]
+        public void Buying_all_products_removing_it_from_machine()
+        {
+            var viewModel = GetModelWithCoins();
+            var showCaseItemViewModel = viewModel.MachineProducts.First(p => p.Number == 1);
+            for(int i = 0; i < showCaseItemViewModel.Amount ; i++)
+                viewModel.BuyProductCommand.Execute(1);
+
+            viewModel.MachineProducts.ShouldNotContain(showCaseItemViewModel);
+        }
+
+        private static DesignTimeMainWindowViewModel GetModelWithCoins()
+        {
+            var viewModel = new DesignTimeMainWindowViewModel();
+            var coinPile = new CoinPile(Coin.Ten(), 10);
+            for (int i = 0; i < 10; i++)
+                viewModel.PutCoinCommand.Execute(coinPile);
+
+            return viewModel;
+        }
+
+        [Test]
+        public void Buying_a_product_adds_it_to_customer_product_list()
+        {
+            var viewModel = GetModelWithCoins();
+            var showCaseItemViewModel = viewModel.MachineProducts.First(p => p.Number == 1);
+            viewModel.BuyProductCommand.Execute(1);
+
+            viewModel.CustomerProducts.ShouldContain(showCaseItemViewModel.Product);
+        }
     }
 }

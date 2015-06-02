@@ -24,6 +24,7 @@ namespace VendingMachine.UI
         public ObservableCollection<IProduct> CustomerProducts { get; set; }
 
         public ICommand PutCoinCommand { get; private set; }
+        public ICommand BuyProductCommand { get; private set; }
 
         public MainWindowViewModel(IVendingMachine machine, IWallet machineWallet, IWallet customerWallet)
         {
@@ -37,6 +38,17 @@ namespace VendingMachine.UI
             CustomerCoins = new ObservableCollection<CoinPile>(customerWallet.Coins.ToPiles());
 
             PutCoinCommand = new DelegateCommand<CoinPile>(PutCoins, CanPutCoins);
+            BuyProductCommand = new DelegateCommand<int>(BuyProduct, CanBuyProduct);
+        }
+
+        private bool CanBuyProduct(int number)
+        {
+            return _machine.Showcase.Any(s => s.Number == number);
+        }
+
+        private void BuyProduct(int number)
+        {
+            var product = _machine.Sell(number);
         }
 
         private bool CanPutCoins(CoinPile parameter)
@@ -46,7 +58,7 @@ namespace VendingMachine.UI
 
         private void PutCoins(CoinPile pile)
         {
-            var coin = _customerWallet.GetMoney(pile.Coin.Value).Single();
+            var coin = _customerWallet.GetCoinLike(pile.Coin);
             pile.Amount--;
             if (pile.Amount == 0) CustomerCoins.Remove(pile);
 
