@@ -38,7 +38,6 @@ namespace VendingMachine.UI
 
         private static readonly Dictionary<Coin, string> CoinImagesPaths= new Dictionary<Coin, string>();
 
-
         static CoinPile()
         {
             CoinImagesPaths[Coin.One()]  = "/VendingMachine.UI;component/Images/1_coin.png"; 

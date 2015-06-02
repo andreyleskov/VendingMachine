@@ -46,5 +46,18 @@ namespace VendingMachine.Tests.ViewModelTests
             viewModel.MachineCoins.Any(c => c.Coin == customerCoinPile.Coin)
                                   .ShouldBeTrue();
         }
+
+
+        [Test]
+        public void Customer_balance_changes_after_coin_insert()
+        {
+            var viewModel = new DesignTimeMainWindowViewModel();
+            var customerCoinPile = viewModel.CustomerCoins.First();
+            viewModel.PutCoinCommand.Execute(customerCoinPile);
+            viewModel.PutCoinCommand.Execute(customerCoinPile);
+            viewModel.PutCoinCommand.Execute(customerCoinPile);
+
+            viewModel.Balance.ShouldEqual(customerCoinPile.Coin.Value * 3);
+        }
     }
 }

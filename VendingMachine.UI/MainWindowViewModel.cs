@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 namespace VendingMachine.UI
 {
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Dynamic;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using System.Runtime.Remoting;
     using System.Windows.Input;
     using VendingMachine.Domain;
 
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         private readonly IVendingMachine _machine;
         private readonly IWallet _customerWallet;
@@ -48,7 +51,7 @@ namespace VendingMachine.UI
             if (pile.Amount == 0) CustomerCoins.Remove(pile);
 
             _machine.Insert(coin);
-
+            OnPropertyChanged(GetName.Of(this, t => t.Balance));
             
             var machinePile = this.MachineCoins.FirstOrDefault(c => c.Coin == coin);
             if (machinePile == null)
@@ -61,11 +64,30 @@ namespace VendingMachine.UI
         }
 
 
+        public Money Balance
+        {
+            get
+            {
+                return _machine.Balance;
+            }
+        }
+
         public string Title
         {
             get
             {
                 return "It's alive!";
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

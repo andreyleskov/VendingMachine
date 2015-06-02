@@ -78,5 +78,14 @@
             </ListBox>
         </Grid>
 
+        <Grid Name="CustomerBalance" Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0">Внесено:</TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding Balance}"/>
+        </Grid>
+
     </Grid>
 </Window>
