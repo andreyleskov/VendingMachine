@@ -22,18 +22,10 @@ namespace VendingMachine.Tests
                                             buskets);    
         }
 
-        private ProductBusket CreateBusket<T>(int number, Money cost, int amount) where T : IProduct, new()
-        {
-            var busket = new ProductBusket(number, cost);
-            for(int n = 0; n < amount; n++)
-                busket.Add(new T());
-            return busket;
-        }
-
         [Test]
         public void VendingMachine_reduce_customer_balance_by_product_cost()
         {
-            var machine = this.CreateMachine(this.CreateBusket<Tea>(1, Money.Rub(4), 1));
+            var machine = this.CreateMachine(ProductBusket.Of<Tea>(1, Money.Rub(4), 1));
 
             machine.Insert(Coin.One());
             machine.Insert(Coin.One());
@@ -52,7 +44,7 @@ namespace VendingMachine.Tests
             var machineInitialCoins = new[] { Coin.One(), Coin.Five() };
 
             var machine = new NumpadVendingMachine( new MinCoinsWallet(machineInitialCoins),
-                                                    this.CreateBusket<Tea>(1, Money.Rub(4), 1));
+                                                    ProductBusket.Of<Tea>(1, Money.Rub(4), 1));
             machine.Insert(Coin.Ten());
             machine.Sell(1);
             var change = machine.GetChange();

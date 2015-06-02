@@ -36,15 +36,14 @@ namespace VendingMachine.UI
             ImagePath = path;
         }
 
-        private static readonly Dictionary<Coin, string> CoinImagesPaths= new Dictionary<Coin, string>();
-
-        static CoinPile()
-        {
-            CoinImagesPaths[Coin.One()]  = "/VendingMachine.UI;component/Images/1_coin.png"; 
-            CoinImagesPaths[Coin.Two()]  = "/VendingMachine.UI;component/Images/2_coin.png"; 
-            CoinImagesPaths[Coin.Five()] = "/VendingMachine.UI;component/Images/5_coin.png"; 
-            CoinImagesPaths[Coin.Ten()]  = "/VendingMachine.UI;component/Images/10_coin.png"; 
-        }
+        private static readonly Dictionary<Coin, string> CoinImagesPaths = 
+            new Dictionary<Coin, string>()
+            {
+                {Domain.Coin.One(),"/VendingMachine.UI;component/Images/Coins/1_coin.png"},
+                {Domain.Coin.Two(),"/VendingMachine.UI;component/Images/Coins/2_coin.png"},
+                {Domain.Coin.Five(),"/VendingMachine.UI;component/Images/Coins/5_coin.png"},
+                {Domain.Coin.Ten(),"/VendingMachine.UI;component/Images/Coins/10_coin.png"}
+            };
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -68,6 +68,7 @@
     <Compile Include="DesignTimeMainWindowViewModel.cs" />
     <Compile Include="GetName.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="ShowCaseItemViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,10 +117,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\10_coin.png" />
-    <Resource Include="Images\1_coin.png" />
-    <Resource Include="Images\2_coin.png" />
-    <Resource Include="Images\5_coin.png" />
+    <Resource Include="Images\Coins\10_coin.png" />
+    <Resource Include="Images\Coins\1_coin.png" />
+    <Resource Include="Images\Coins\2_coin.png" />
+    <Resource Include="Images\Coins\5_coin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Products\coffe.png" />
+    <Resource Include="Images\Products\coffe_with_milk.png" />
+    <Resource Include="Images\Products\juice.png" />
+    <Resource Include="Images\Products\tea.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

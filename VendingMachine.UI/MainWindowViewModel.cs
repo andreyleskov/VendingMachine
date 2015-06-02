@@ -20,7 +20,7 @@ namespace VendingMachine.UI
         public ObservableCollection<CoinPile> MachineCoins { get; set; }
         public ObservableCollection<CoinPile> CustomerCoins { get; set; }
 
-        public ObservableCollection<IShowcaseItem> MachineProducts { get; set; }
+        public ObservableCollection<ShowCaseItemViewModel> MachineProducts { get; set; }
         public ObservableCollection<IProduct> CustomerProducts { get; set; }
 
         public ICommand PutCoinCommand { get; private set; }
@@ -30,7 +30,7 @@ namespace VendingMachine.UI
             _machine = machine;
             _customerWallet = customerWallet;
 
-            MachineProducts = new ObservableCollection<IShowcaseItem>(_machine.Showcase);
+            MachineProducts = new ObservableCollection<ShowCaseItemViewModel>(_machine.Showcase.Select(i => new ShowCaseItemViewModel(i)));
             CustomerProducts = new ObservableCollection<IProduct>();
 
             MachineCoins = new ObservableCollection<CoinPile>(machineWallet.Coins.ToPiles());
