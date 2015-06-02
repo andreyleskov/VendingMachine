@@ -53,6 +53,11 @@ namespace VendingMachine.Domain
             return !(a == b);
         }
 
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
+
         public static Coin One()  { return new Coin(new Money(Currency.Rub, 100)); }
         public static Coin Two()  { return new Coin(new Money(Currency.Rub, 200)); }
         public static Coin Five() { return new Coin(new Money(Currency.Rub, 500)); }

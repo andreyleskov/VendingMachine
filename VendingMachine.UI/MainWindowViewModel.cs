@@ -11,9 +11,8 @@ namespace VendingMachine.UI
 
     public class MainWindowViewModel
     {
-        private IVendingMachine _machine;
-        private IWallet _customerWallet;
-        private IWallet _machineWallet;
+        private readonly IVendingMachine _machine;
+        private readonly IWallet _customerWallet;
 
         public ObservableCollection<CoinPile> MachineCoins { get; set; }
         public ObservableCollection<CoinPile> CustomerCoins { get; set; }
@@ -27,7 +26,6 @@ namespace VendingMachine.UI
         {
             _machine = machine;
             _customerWallet = customerWallet;
-            _machineWallet = machineWallet;
 
             MachineProducts = new ObservableCollection<IShowcaseItem>(_machine.Showcase);
             CustomerProducts = new ObservableCollection<IProduct>();
@@ -61,6 +59,7 @@ namespace VendingMachine.UI
 
             machinePile.Amount ++;
         }
+
 
         public string Title
         {

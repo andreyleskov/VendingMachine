@@ -67,7 +67,6 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeMainWindowViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="PutCoinCommand.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

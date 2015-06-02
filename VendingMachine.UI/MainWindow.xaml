@@ -10,7 +10,7 @@
         >
     <Window.Resources>
         <DataTemplate x:Key="CoinPileTemplate" DataType="UI:CoinPile">
-            <Grid>
+            <Grid ToolTip="Double click to insert coint into vending machine">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
