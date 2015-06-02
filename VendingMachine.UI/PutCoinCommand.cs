@@ -24,7 +24,7 @@ namespace VendingMachine.UI
 
         public override void Execute(CoinPile parameter)
         {
-            var coin = _wallet.GetMoney(parameter.Value).Single();
+            var coin = _wallet.GetCoinLike(parameter.Coin);
             parameter.Amount --;
             _machine.Insert(coin);
         }

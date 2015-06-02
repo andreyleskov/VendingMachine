@@ -29,7 +29,7 @@ namespace VendingMachine.Domain
         public NumpadVendingMachine( IWallet machineWallet,
                                      params ProductBusket[] buskets)
         {
-            this._buskets = buskets.ToDictionary(b => b.Number, b => b);
+            this._buskets = buskets == null ? new Dictionary<int, ProductBusket>() : buskets.ToDictionary(b => b.Number, b => b);
             this._machineWallet = machineWallet;
             Balance = Money.Zero;
         }

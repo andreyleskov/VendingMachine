@@ -22,10 +22,10 @@ namespace VendingMachine.Tests.ViewModelTests
         {
             var viewModel = new DesignTimeMainWindowViewModel();
             var customerCoinPile = viewModel.CustomerCoins.First();
-            var machineCoins = viewModel.MachineCoins.Single(c => c.Value == customerCoinPile.Value);
+            var machineCoins = viewModel.MachineCoins.Single(c => c.Coin == customerCoinPile.Coin);
             int amount = customerCoinPile.Amount;
             for(int i=0; i < amount; i++)
-                viewModel.PutCoins(customerCoinPile);
+                viewModel.PutCoinCommand.Execute(customerCoinPile);
 
             viewModel.CustomerCoins.ShouldNotContain(customerCoinPile);
         }
@@ -41,9 +41,9 @@ namespace VendingMachine.Tests.ViewModelTests
             var customerCoinPile = viewModel.CustomerCoins.First();
             int amount = customerCoinPile.Amount;
             for (int i = 0; i < amount; i++)
-                viewModel.PutCoins(customerCoinPile);
+                viewModel.PutCoinCommand.Execute(customerCoinPile);
 
-            viewModel.MachineCoins.Any(c => c.Value == customerCoinPile.Value)
+            viewModel.MachineCoins.Any(c => c.Coin == customerCoinPile.Coin)
                                   .ShouldBeTrue();
         }
     }

@@ -18,10 +18,39 @@ namespace VendingMachine.Domain
 
         public override bool Equals(object obj)
         {
-            var coin = obj as Coin;
-            if (coin == null) return false;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            return Equals((Coin)obj);
+        }
 
-            return coin.Value.Equals(this.Value);
+        protected bool Equals(Coin other)
+        {
+            return Equals(this.Value, other.Value);
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.Value != null ? this.Value.GetHashCode() : 0);
+        }
+
+        public static bool operator  == (Coin a, Coin b)
+        {
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(Coin a, Coin b)
+        {
+            return !(a == b);
         }
 
         public static Coin One()  { return new Coin(new Money(Currency.Rub, 100)); }

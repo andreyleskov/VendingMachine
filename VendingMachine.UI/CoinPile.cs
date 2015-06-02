@@ -8,7 +8,7 @@ namespace VendingMachine.UI
 
     public class CoinPile:INotifyPropertyChanged
     {
-        public Money Value { get; private set; }
+        public Coin Coin { get; private set; }
 
         private int _amount;
         public int Amount
@@ -26,25 +26,25 @@ namespace VendingMachine.UI
 
         public string ImagePath { get; private set; }
 
-        public CoinPile(Coin coin, int amount)
+        public CoinPile(Coin coin, int amount = 0)
         {
-            Value = coin.Value;
+            this.Coin = coin;
             Amount = amount;
 
             string path;
-            CoinImagesPaths.TryGetValue(Value, out path);
+            CoinImagesPaths.TryGetValue(this.Coin, out path);
             ImagePath = path;
         }
 
-        private static readonly Dictionary<Money, string> CoinImagesPaths= new Dictionary<Money, string>();
+        private static readonly Dictionary<Coin, string> CoinImagesPaths= new Dictionary<Coin, string>();
 
 
         static CoinPile()
         {
-            CoinImagesPaths[Coin.One().Value]  = "/VendingMachine.UI;component/Images/1_coin.png"; 
-            CoinImagesPaths[Coin.Two().Value]  = "/VendingMachine.UI;component/Images/2_coin.png"; 
-            CoinImagesPaths[Coin.Five().Value] = "/VendingMachine.UI;component/Images/5_coin.png"; 
-            CoinImagesPaths[Coin.Ten().Value]  = "/VendingMachine.UI;component/Images/10_coin.png"; 
+            CoinImagesPaths[Coin.One()]  = "/VendingMachine.UI;component/Images/1_coin.png"; 
+            CoinImagesPaths[Coin.Two()]  = "/VendingMachine.UI;component/Images/2_coin.png"; 
+            CoinImagesPaths[Coin.Five()] = "/VendingMachine.UI;component/Images/5_coin.png"; 
+            CoinImagesPaths[Coin.Ten()]  = "/VendingMachine.UI;component/Images/10_coin.png"; 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

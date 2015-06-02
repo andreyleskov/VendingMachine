@@ -38,20 +38,27 @@ namespace VendingMachine.UI
             PutCoinCommand = new DelegateCommand<CoinPile>(PutCoins, CanPutCoins);
         }
 
-        public bool CanPutCoins(CoinPile parameter)
+        private bool CanPutCoins(CoinPile parameter)
         {
             return parameter.Amount > 0;
         }
 
-        public void PutCoins(CoinPile pile)
+        private void PutCoins(CoinPile pile)
         {
-            var coin = _customerWallet.GetMoney(pile.Value).Single();
+            var coin = _customerWallet.GetMoney(pile.Coin.Value).Single();
             pile.Amount--;
             if (pile.Amount == 0) CustomerCoins.Remove(pile);
 
             _machine.Insert(coin);
 
-            var machinePile = MachineCoins.FirstOrDefault(c => c.Value == coin.Value);
+            
+            var machinePile = this.MachineCoins.FirstOrDefault(c => c.Coin == coin);
+            if (machinePile == null)
+            {
+                machinePile = new CoinPile(pile.Coin);
+                MachineCoins.Add(machinePile);
+            }
+
             machinePile.Amount ++;
         }
 
