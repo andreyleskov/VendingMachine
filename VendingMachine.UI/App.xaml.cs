@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace VendingMachine.UI
+namespace  VendingMachine.UI
 {
     using VendingMachine.Domain;
     using VendingMachine.Domain.Products;

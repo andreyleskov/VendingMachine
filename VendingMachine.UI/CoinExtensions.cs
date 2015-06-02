@@ -9,7 +9,7 @@ namespace VendingMachine.UI
     {
         public static IEnumerable<CoinPile> ToPiles(this IEnumerable<Coin> coins)
         {
-            return coins.GroupBy(c => c.Value).Select(g => new CoinPile(g.Key, g.Count()));
+            return coins.GroupBy(c => c.Value).Select(g => new CoinPile(g.First(), g.Count()));
         }   
     }
 }

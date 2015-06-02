@@ -5,8 +5,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         xmlns:UI="clr-namespace:VendingMachine.UI"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         d:DataContext="{d:DesignInstance Type=UI:DesignTimeMainWindowViewModel, IsDesignTimeCreatable=True}"
         >
+    <Window.Resources>
+        <DataTemplate x:Key="CoinPileTemplate" DataType="UI:CoinPile">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="{Binding ImagePath}" Height="20" Grid.Column="0"></Image>
+                <TextBlock Text="{Binding Value}"   Padding="5,0,0,0" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Amount}"  Padding="5,0,0,0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <Label VerticalAlignment="Center"   Grid.Column="3">Шт</Label>
+
+            </Grid>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type ListBoxItem}" x:Key="WalletListBoxItemStyle">
+            <Setter Property="ContentTemplate" Value="{StaticResource CoinPileTemplate}" />
+        </Style>
+
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -17,24 +43,38 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
+
+        <Grid Name="MachineWalletGrid" Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0">Кошелёк автомата</Label>
+            <ListBox Grid.Row ="1"
+                                   Name="MachineWallet" 
+                                   ItemsSource="{Binding MachineCoins}"
+                                   ItemContainerStyle="{StaticResource WalletListBoxItemStyle}">
+            </ListBox>
+        </Grid>
         
         <Grid Name="CustomerWalletGrid" Grid.Column="0" Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+
             <Label Grid.Row="0">Кошелёк пользователя</Label>
-            <ListBox Grid.Row ="1" Name="CustomerWallet" ItemsSource="{Binding CustomerCoins}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}" Height="30"></Image>
-                            <TextBlock Text="{Binding Name}"/>
-                            <Label>Modified</Label>
-                            <TextBlock Text="{Binding LastModified}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+            <ListBox Grid.Row ="1" Name="CustomerWallet" 
+                                   ItemsSource="{Binding CustomerCoins}"
+                                   ItemContainerStyle="{StaticResource WalletListBoxItemStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick" SourceName="CustomerWallet">
+                        <i:InvokeCommandAction Command="{Binding PutCoinCommand}" 
+                                               CommandParameter="{Binding (ListBox.SelectedItem),RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </ListBox>
         </Grid>
 
