@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         xmlns:UI="clr-namespace:VendingMachine.UI"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:domain="clr-namespace:VendingMachine.Domain;assembly=VendingMachine.Domain"
         d:DataContext="{d:DesignInstance Type=UI:DesignTimeMainWindowViewModel, IsDesignTimeCreatable=True}"
         >
     <Window.Resources>
@@ -127,5 +128,32 @@
               </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0">Приобретённые товары:</Label>
+            <ListBox Name="CustomerProducts" ItemsSource="{Binding CustomerProducts}" Grid.Row="1">
+                <ListBox.ItemTemplate>
+                    <DataTemplate  DataType="UI:CoinPile">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="20"/>
+                                <ColumnDefinition MinWidth="25"/>
+                                <ColumnDefinition MinWidth="60"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image     Grid.Column="0" Source="{Binding ImagePath}" Height="20"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Product.Name}" HorizontalAlignment="Left"></TextBlock>
+                            <TextBlock Grid.Column="2" Text="{Binding Amount}"/>
+                            <TextBlock Grid.Column="3" Text="Шт" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        
     </Grid>
 </Window>

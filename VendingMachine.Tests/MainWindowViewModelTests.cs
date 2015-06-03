@@ -22,7 +22,7 @@ namespace VendingMachine.Tests.ViewModelTests
         {
             var viewModel = new DesignTimeMainWindowViewModel();
             var customerCoinPile = viewModel.CustomerCoins.First();
-            var machineCoins = viewModel.MachineCoins.Single(c => c.Coin == customerCoinPile.Coin);
+            var machineCoins = viewModel.MachineCoins.Single(c => c.Item == customerCoinPile.Item);
             int amount = customerCoinPile.Amount;
             for(int i=0; i < amount; i++)
                 viewModel.PutCoinCommand.Execute(customerCoinPile);
@@ -43,7 +43,7 @@ namespace VendingMachine.Tests.ViewModelTests
             for (int i = 0; i < amount; i++)
                 viewModel.PutCoinCommand.Execute(customerCoinPile);
 
-            viewModel.MachineCoins.Any(c => c.Coin == customerCoinPile.Coin)
+            viewModel.MachineCoins.Any(c => c.Item == customerCoinPile.Item)
                                   .ShouldBeTrue();
         }
 
@@ -57,7 +57,7 @@ namespace VendingMachine.Tests.ViewModelTests
             viewModel.PutCoinCommand.Execute(customerCoinPile);
             viewModel.PutCoinCommand.Execute(customerCoinPile);
 
-            viewModel.Balance.ShouldEqual(customerCoinPile.Coin.Value * 3);
+            viewModel.Balance.ShouldEqual(customerCoinPile.Item.Value * 3);
         }
 
         private static DesignTimeMainWindowViewModel GetModelWithCoins()
@@ -99,7 +99,8 @@ namespace VendingMachine.Tests.ViewModelTests
             var showCaseItemViewModel = viewModel.MachineProducts.First(p => p.Number == 1);
             viewModel.BuyProductCommand.Execute(1);
 
-            viewModel.CustomerProducts.ShouldContain(showCaseItemViewModel.Product);
+            viewModel.CustomerProducts.Any(p => p.Item == showCaseItemViewModel.Product)
+                                      .ShouldBeTrue();
         }
     }
 }

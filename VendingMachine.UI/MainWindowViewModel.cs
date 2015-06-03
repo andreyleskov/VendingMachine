@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 namespace VendingMachine.UI
 {
+    using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Dynamic;
@@ -17,11 +19,11 @@ namespace VendingMachine.UI
         private readonly IVendingMachine _machine;
         private readonly IWallet _customerWallet;
 
-        public ObservableCollection<CoinPile> MachineCoins { get; set; }
-        public ObservableCollection<CoinPile> CustomerCoins { get; set; }
+        public ObservableCollection<IPileViewModelOf<Coin>> MachineCoins { get; set; }
+        public ObservableCollection<IPileViewModelOf<Coin>> CustomerCoins { get; set; }
 
         public ObservableCollection<ShowCaseItemViewModel> MachineProducts { get; set; }
-        public ObservableCollection<IProduct> CustomerProducts { get; set; }
+        public ObservableCollection<IPileViewModelOf<IProduct>> CustomerProducts { get; set; }
 
         public ICommand PutCoinCommand { get; private set; }
         public ICommand BuyProductCommand { get; private set; }
@@ -32,12 +34,12 @@ namespace VendingMachine.UI
             _customerWallet = customerWallet;
 
             MachineProducts = new ObservableCollection<ShowCaseItemViewModel>(_machine.Showcase.Select(i => new ShowCaseItemViewModel(i)));
-            CustomerProducts = new ObservableCollection<IProduct>();
+            CustomerProducts = new ObservableCollection<IPileViewModelOf<IProduct>>();
 
-            MachineCoins = new ObservableCollection<CoinPile>(machineWallet.Coins.ToPiles());
-            CustomerCoins = new ObservableCollection<CoinPile>(customerWallet.Coins.ToPiles());
+            MachineCoins = new ObservableCollection<IPileViewModelOf<Coin>>(machineWallet.Coins.ToPiles());
+            CustomerCoins = new ObservableCollection<IPileViewModelOf<Coin>>(customerWallet.Coins.ToPiles());
 
-            PutCoinCommand = new DelegateCommand<CoinPile>(PutCoins, CanPutCoins);
+            PutCoinCommand = new DelegateCommand<IPileViewModelOf<Coin>>(PutCoins, CanPutCoins);
             BuyProductCommand = new DelegateCommand<int>(BuyProduct, CanBuyProduct);
         }
 
@@ -49,32 +51,52 @@ namespace VendingMachine.UI
         private void BuyProduct(int number)
         {
             var product = _machine.Sell(number);
+            OnPropertyChanged(GetName.Of(this, t => t.Balance));
+
+            this.Reduce<IProduct, ShowCaseItemViewModel>(MachineProducts,
+                                                         p => this.Like(p.Item,product));
+
+            this.Increase<IProduct, IPileViewModelOf<IProduct>>(CustomerProducts,
+                                                                p => this.Like(p.Item,product),
+                                                                () => new ProductPile(product,0));
         }
 
-        private bool CanPutCoins(CoinPile parameter)
+        private void Increase<T, U>(ICollection<U> collection,
+                                    Func<U, bool> searchFunc,
+                                    Func<U> factory) where U : class, IPileViewModelOf<T>
+        {
+            var existedItem = collection.FirstOrDefault(searchFunc);
+            if (existedItem == null)
+            {
+                existedItem = factory();
+                collection.Add(existedItem);
+            }
+            existedItem.Amount++;
+        }
+
+        private bool Like(IProduct a, IProduct b)
+        {
+            return a.GetType() == b.GetType();
+        }
+
+        private bool CanPutCoins(IPileViewModelOf<Coin> parameter)
         {
             return parameter.Amount > 0;
         }
 
-        private void PutCoins(CoinPile pile)
+        private void PutCoins(IPileViewModelOf<Coin> pile)
         {
-            var coin = _customerWallet.GetCoinLike(pile.Coin);
-            pile.Amount--;
-            if (pile.Amount == 0) CustomerCoins.Remove(pile);
+            var coin = _customerWallet.GetCoinLike(pile.Item);
+            Reduce<Coin,IPileViewModelOf<Coin>>(CustomerCoins,
+                                                c => c.Item == coin );
 
             _machine.Insert(coin);
+
             OnPropertyChanged(GetName.Of(this, t => t.Balance));
-            
-            var machinePile = this.MachineCoins.FirstOrDefault(c => c.Coin == coin);
-            if (machinePile == null)
-            {
-                machinePile = new CoinPile(pile.Coin);
-                MachineCoins.Add(machinePile);
-            }
-
-            machinePile.Amount ++;
+            Increase<Coin, IPileViewModelOf<Coin>>(MachineCoins, 
+                                                   c => c.Item == coin, 
+                                                   () => new CoinPile(coin, 0));
         }
-
 
         public Money Balance
         {
@@ -102,5 +124,17 @@ namespace VendingMachine.UI
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        private void Reduce<T, U>(ICollection<U> collection,
+                                  Func<U,bool> searchFunc) where U : IPileViewModelOf<T>
+        {
+            var showcaseProduct = collection.First(searchFunc);
+            showcaseProduct.Amount--;
+            if (showcaseProduct.Amount == 0)
+                collection.Remove(showcaseProduct);
+        }
+
+  
+
     }
 }

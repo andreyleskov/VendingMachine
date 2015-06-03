@@ -7,7 +7,7 @@ namespace VendingMachine.UI
 
     public static class CoinExtensions
     {
-        public static IEnumerable<CoinPile> ToPiles(this IEnumerable<Coin> coins)
+        public static IEnumerable<IPileViewModelOf<Coin>> ToPiles(this IEnumerable<Coin> coins)
         {
             return coins.GroupBy(c => c.Value).Select(g => new CoinPile(g.First(), g.Count()));
         }   

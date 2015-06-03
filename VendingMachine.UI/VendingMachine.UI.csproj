@@ -67,7 +67,10 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeMainWindowViewModel.cs" />
     <Compile Include="GetName.cs" />
+    <Compile Include="IPileViewModelOf.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="PileViewModelOf.cs" />
+    <Compile Include="ProductPile.cs" />
     <Compile Include="ShowCaseItemViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

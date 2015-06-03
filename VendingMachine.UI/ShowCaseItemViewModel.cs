@@ -12,60 +12,44 @@ namespace VendingMachine.UI
     using VendingMachine.Domain;
     using VendingMachine.Domain.Products;
 
-    public class ShowCaseItemViewModel : IShowcaseItem,INotifyPropertyChanged
+    public class ShowCaseItemViewModel : IPileViewModelOf<IProduct>, IShowcaseItem
     {
-        public readonly IShowcaseItem Item;
+        private readonly PileViewModelOf<IProduct> _pile;
 
-        private int _amount;
+        private readonly IShowcaseItem _item;
 
         public ShowCaseItemViewModel(IShowcaseItem item)
         {
-            this.Item = item;
-            string imagePath;
-            ImagePaths.TryGetValue(item.Product.GetType(), out imagePath);
-            ImagePath = imagePath;
-            Amount = item.Amount;
+            this._item = item;
+            _pile = new ProductPile(item.Product, item.Amount);
         }
 
         public int Amount
         {
-            get
-            {
-                return this._amount;
-            }
-            set
-            {
-                this._amount = value;
-                this.OnPropertyChanged();
-            }
+            get { return _pile.Amount; }
+            set { _pile.Amount = value; }
         }
 
-        public int Number {get{return Item.Number;}}
+        public int Number { get { return _item.Number; } }
 
-        public IProduct Product { get{return Item.Product;} }
+        public IProduct Product { get { return _item.Product; } }
 
-        public Money Cost { get{return Item.Cost;}}
+        public Money Cost { get { return _item.Cost; } }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler PropertyChanged
         {
-            var handler = PropertyChanged;
-            if (handler != null)
+            add
             {
-                handler(this, new PropertyChangedEventArgs(propertyName));
+                _pile.PropertyChanged += value;
+            }
+            remove
+            {
+                _pile.PropertyChanged -= value;
             }
         }
-        public string ImagePath { get; private set; }
 
-        private static Dictionary<Type, string> ImagePaths = 
-            new Dictionary<Type, string>
-            {
-                 {typeof(Tea),"/VendingMachine.UI;component/Images/Products/tea.png"},
-                 {typeof(Coffe),"/VendingMachine.UI;component/Images/Products/coffe.png"},
-                 {typeof(CoffeWithMilk),"/VendingMachine.UI;component/Images/Products/coffe_with_milk.png"},
-                 {typeof(Juice),"/VendingMachine.UI;component/Images/Products/juice.png"},
-            }; 
+        public IProduct Item { get {return Product;} }
 
+        public string ImagePath { get{ return _pile.ImagePath;} }
     }
 }

@@ -32,6 +32,7 @@
                                                                       ProductBusket.Of<Coffe>(2,Money.Rub(20),3),
                                                                       ProductBusket.Of<Juice>(3,Money.Rub(30),1),
                                                                   });
+
         }
 
         public DesignTimeMainWindowViewModel(): base(Machine, MachineWallet, CustomerWallet)
