@@ -60,6 +60,16 @@ namespace VendingMachine.Tests.ViewModelTests
             viewModel.Balance.ShouldEqual(customerCoinPile.Coin.Value * 3);
         }
 
+        private static DesignTimeMainWindowViewModel GetModelWithCoins()
+        {
+            var viewModel = new DesignTimeMainWindowViewModel();
+            var coinPile = new CoinPile(Coin.Ten(), 10);
+            for (int i = 0; i < 10; i++)
+                viewModel.PutCoinCommand.Execute(coinPile);
+
+            return viewModel;
+        }
+
         [Test]
         public void Buying_Product_reducing_its_amount()
         {
@@ -80,16 +90,6 @@ namespace VendingMachine.Tests.ViewModelTests
                 viewModel.BuyProductCommand.Execute(1);
 
             viewModel.MachineProducts.ShouldNotContain(showCaseItemViewModel);
-        }
-
-        private static DesignTimeMainWindowViewModel GetModelWithCoins()
-        {
-            var viewModel = new DesignTimeMainWindowViewModel();
-            var coinPile = new CoinPile(Coin.Ten(), 10);
-            for (int i = 0; i < 10; i++)
-                viewModel.PutCoinCommand.Execute(coinPile);
-
-            return viewModel;
         }
 
         [Test]
