@@ -54,7 +54,7 @@ namespace VendingMachine.UI
             OnPropertyChanged(GetName.Of(this, t => t.Balance));
 
             this.Reduce<IProduct, ShowCaseItemViewModel>(MachineProducts,
-                                                         p => this.Like(p.Item,product));
+                                                         p => p.Item == null || this.Like(p.Item, product));
 
             this.Increase<IProduct, IPileViewModelOf<IProduct>>(CustomerProducts,
                                                                 p => this.Like(p.Item,product),

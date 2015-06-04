@@ -6,8 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         xmlns:UI="clr-namespace:VendingMachine.UI"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:domain="clr-namespace:VendingMachine.Domain;assembly=VendingMachine.Domain"
-        d:DataContext="{d:DesignInstance Type=UI:DesignTimeMainWindowViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{Binding Source={x:Static UI:TestData.MainWindowViewModel}}"
         >
     <Window.Resources>
         <DataTemplate x:Key="CoinPileTemplate" DataType="UI:CoinPile">

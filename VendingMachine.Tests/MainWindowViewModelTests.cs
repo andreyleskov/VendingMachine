@@ -20,7 +20,7 @@ namespace VendingMachine.Tests.ViewModelTests
         [Test]
         public void EmptyCoinPile_dissapears_from_customer_wallet()
         {
-            var viewModel = new DesignTimeMainWindowViewModel();
+            var viewModel = TestData.MainWindowViewModel;
             var customerCoinPile = viewModel.CustomerCoins.First();
             var machineCoins = viewModel.MachineCoins.Single(c => c.Item == customerCoinPile.Item);
             int amount = customerCoinPile.Amount;
@@ -51,7 +51,7 @@ namespace VendingMachine.Tests.ViewModelTests
         [Test]
         public void Customer_balance_changes_after_coin_insert()
         {
-            var viewModel = new DesignTimeMainWindowViewModel();
+            var viewModel = TestData.MainWindowViewModel;
             var customerCoinPile = viewModel.CustomerCoins.First();
             viewModel.PutCoinCommand.Execute(customerCoinPile);
             viewModel.PutCoinCommand.Execute(customerCoinPile);
@@ -60,9 +60,9 @@ namespace VendingMachine.Tests.ViewModelTests
             viewModel.Balance.ShouldEqual(customerCoinPile.Item.Value * 3);
         }
 
-        private static DesignTimeMainWindowViewModel GetModelWithCoins()
+        private static MainWindowViewModel GetModelWithCoins()
         {
-            var viewModel = new DesignTimeMainWindowViewModel();
+            var viewModel = TestData.MainWindowViewModel;
             var coinPile = new CoinPile(Coin.Ten(), 10);
             for (int i = 0; i < 10; i++)
                 viewModel.PutCoinCommand.Execute(coinPile);
@@ -86,7 +86,8 @@ namespace VendingMachine.Tests.ViewModelTests
         {
             var viewModel = GetModelWithCoins();
             var showCaseItemViewModel = viewModel.MachineProducts.First(p => p.Number == 1);
-            for(int i = 0; i < showCaseItemViewModel.Amount ; i++)
+            var amount = showCaseItemViewModel.Amount;
+            for(int i = 0; i < amount ; i++)
                 viewModel.BuyProductCommand.Execute(1);
 
             viewModel.MachineProducts.ShouldNotContain(showCaseItemViewModel);
@@ -99,7 +100,7 @@ namespace VendingMachine.Tests.ViewModelTests
             var showCaseItemViewModel = viewModel.MachineProducts.First(p => p.Number == 1);
             viewModel.BuyProductCommand.Execute(1);
 
-            viewModel.CustomerProducts.Any(p => p.Item == showCaseItemViewModel.Product)
+            viewModel.CustomerProducts.Any(p => p.Item.GetType() == showCaseItemViewModel.Product.GetType())
                                       .ShouldBeTrue();
         }
     }

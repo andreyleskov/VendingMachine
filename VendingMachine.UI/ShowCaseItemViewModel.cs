@@ -22,6 +22,7 @@ namespace VendingMachine.UI
         {
             this._item = item;
             _pile = new ProductPile(item.Product, item.Amount);
+            _pile.PropertyChanged += (s,e) => PropertyChanged.Invoke(this, e);
         }
 
         public int Amount
@@ -36,18 +37,8 @@ namespace VendingMachine.UI
 
         public Money Cost { get { return _item.Cost; } }
 
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            add
-            {
-                _pile.PropertyChanged += value;
-            }
-            remove
-            {
-                _pile.PropertyChanged -= value;
-            }
-        }
-
+        public event PropertyChangedEventHandler PropertyChanged = (s, a) => { };
+     
         public IProduct Item { get {return Product;} }
 
         public string ImagePath { get{ return _pile.ImagePath;} }
