@@ -9,7 +9,8 @@
         xmlns:UI="clr-namespace:VendingMachine.UI"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         d:DataContext="{Binding Source={x:Static UI:TestData.MainWindowViewModel}}"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize">
     <Window.Resources>
 
         <Style TargetType="StackPanel">
@@ -51,8 +52,7 @@
         </Style>
 
     </Window.Resources>
-
-    <Grid>
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -64,49 +64,45 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="1" Grid.Row="0">
-            <StackPanel>
-                <TextBlock>Кошелёк автомата</TextBlock>
-                <ListBox BorderThickness="0"
-                         ItemsSource="{Binding MachineCoins}"
-                         ItemContainerStyle="{StaticResource WalletListBoxItemStyle}" />
-            </StackPanel>
-        </Border>
+        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
 
-        <Border Grid.Column="0" Grid.Row="0">
-            <StackPanel>
-                <TextBlock>Кошелёк покупателя</TextBlock>
-                <ListBox ToolTip="Нажмите дважды чтобы вставить монету в автомат"
+        <StackPanel Grid.Column="0" Grid.Row="0">
+            <TextBlock>Кошелёк покупателя</TextBlock>
+            <ListBox ToolTip="Нажмите дважды чтобы вставить монету в автомат"
                          Name="CustomerWallet"
                          ItemsSource="{Binding CustomerCoins}"
                          ItemContainerStyle="{StaticResource WalletListBoxItemStyle}">
 
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick" SourceName="CustomerWallet">
-                            <i:InvokeCommandAction Command="{Binding PutCoinCommand}"
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick" SourceName="CustomerWallet">
+                        <i:InvokeCommandAction Command="{Binding PutCoinCommand}"
                                                    CommandParameter="{Binding (ListBox.SelectedItem),RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ListBox>
-            </StackPanel>
-        </Border>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
+        </StackPanel>
 
-        <Border Grid.Column="1" Grid.Row="1">
-            <DockPanel Margin="1">
-                <TextBlock Padding="5,0,0,5">Внесено:</TextBlock>
-                <TextBlock Padding="5,0,5,0" Text="{Binding Balance}" />
-                <Button Padding="5,1,5,1" Command="{Binding GetChangeCommand}">Сдача</Button>
-            </DockPanel>
-        </Border>
+        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"/>
+        <StackPanel Grid.Column="1" Grid.Row="0">
+            <TextBlock>Кошелёк автомата</TextBlock>
+            <ListBox BorderThickness="0"
+                         ItemsSource="{Binding MachineCoins}"
+                         ItemContainerStyle="{StaticResource WalletListBoxItemStyle}" />
+        </StackPanel>
 
-        <Border Grid.Column="0" Grid.Row="1">
-            <DockPanel Margin="1">
-                <TextBlock Padding="5,0,0,5">Всего:</TextBlock>
-                <TextBlock Padding="5,0,5,0" Text="{Binding CustomerTotal}" />
-            </DockPanel>
-        </Border>
+        <DockPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock Padding="5,0,0,5">Внесено:</TextBlock>
+            <TextBlock Padding="5,0,5,0" Text="{Binding Balance}" />
+            <Button Padding="5,1,5,1" Margin="3" Command="{Binding GetChangeCommand}">Сдача</Button>
+        </DockPanel>
+
+        <DockPanel Margin="1" Grid.Column="0" Grid.Row="1">
+            <TextBlock Padding="5,0,0,5">Всего:</TextBlock>
+            <TextBlock Padding="5,0,5,0" Text="{Binding CustomerTotal}" />
+        </DockPanel>
 
         <Border Grid.Row="2" Grid.Column="1">
+
             <StackPanel>
                 <TextBlock>Доступные товары:</TextBlock>
                 <ListBox Name="MachineShowcase"
@@ -134,7 +130,7 @@
                 </ListBox>
             </StackPanel>
         </Border>
-
+        
         <Border Grid.Row="2" Grid.Column="0">
             <StackPanel>
                 <TextBlock>Приобретённые товары:</TextBlock>
@@ -152,6 +148,5 @@
                 </ListBox>
             </StackPanel>
         </Border>
-
     </Grid>
 </Window>
