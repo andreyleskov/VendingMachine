@@ -53,6 +53,17 @@ namespace VendingMachine.Tests
         }
 
         [Test]
+        public void Machine_reduces_balance_after_giving_change()
+        {
+            var machine = this.CreateMachine();
+            machine.Insert(Coin.Five());
+            machine.Insert(Coin.One());
+            machine.GetChange();
+
+            Assert.AreEqual(Money.Zero, machine.Balance);
+        }
+
+        [Test]
         public void VendingMachine_shows_total_sum_after_coin_insert()
         {
             var machine = this.CreateMachine();

@@ -13,7 +13,7 @@ namespace VendingMachine.UI
 
         public bool CanExecute(object parameter)
         {
-            return parameter is T && this.CanExecute((T)parameter);
+            return (parameter is T  || parameter == null) && this.CanExecute((T)parameter);
         }
 
         public virtual void Execute(T parameter)
@@ -26,6 +26,16 @@ namespace VendingMachine.UI
             this.Execute((T)parameter);
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
     }
 }

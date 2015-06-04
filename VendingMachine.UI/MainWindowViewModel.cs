@@ -27,6 +27,8 @@ namespace VendingMachine.UI
 
         public ICommand PutCoinCommand { get; private set; }
         public ICommand BuyProductCommand { get; private set; }
+        public ICommand GetChangeCommand { get; private set; }
+
 
         public MainWindowViewModel(IVendingMachine machine, IWallet machineWallet, IWallet customerWallet)
         {
@@ -41,6 +43,22 @@ namespace VendingMachine.UI
 
             PutCoinCommand = new DelegateCommand<IPileViewModelOf<Coin>>(PutCoins, CanPutCoins);
             BuyProductCommand = new DelegateCommand<int>(BuyProduct, CanBuyProduct);
+            GetChangeCommand = new DelegateCommand<object>(GetChange);
+        }
+
+        private void GetChange(object obj)
+        {
+            var change = _machine.GetChange();
+            _customerWallet.Put(change);
+
+            foreach (var coin in change)
+            {
+                Coin coin1 = coin;
+                Reduce<Coin, IPileViewModelOf<Coin>>(MachineCoins, c => c.Item == coin1);
+                Increase<Coin, IPileViewModelOf<Coin>>(CustomerCoins, c => c.Item == coin1, () => new CoinPile(coin1, 0));
+            }
+
+            OnPropertyChanged(GetName.Of(this, t => t.Balance));
         }
 
         private bool CanBuyProduct(int number)
@@ -114,6 +132,7 @@ namespace VendingMachine.UI
             }
         }
 
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName = null)

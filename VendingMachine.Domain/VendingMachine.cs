@@ -42,7 +42,9 @@ namespace VendingMachine.Domain
 
         public Coin[] GetChange()
         {
-            return _machineWallet.GetMoney(Balance);
+            var change = _machineWallet.GetMoney(Balance);
+            Balance -= change.Aggregate(Money.Zero, (m,c) => m + c.Value);
+            return change;
         }
 
         public IProduct Sell(int number)

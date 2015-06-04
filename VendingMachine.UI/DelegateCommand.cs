@@ -8,10 +8,10 @@ namespace VendingMachine.UI
 
         private readonly Action<T> _execute;
 
-        public DelegateCommand(Action<T> execute, Func<T,bool> canExecute)
+        public DelegateCommand(Action<T> execute, Func<T,bool> canExecute = null)
         {
             this._execute = execute;
-            this._canExecute = canExecute;
+            this._canExecute = canExecute ?? (p => true);
         }
 
         public override bool CanExecute(T parameter)
