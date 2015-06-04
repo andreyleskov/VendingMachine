@@ -67,6 +67,7 @@ namespace VendingMachine.UI
             }
 
             OnPropertyChanged(GetName.Of(this, t => t.Balance));
+            OnPropertyChanged(GetName.Of(this, t => t.CustomerTotal));
         }
 
         private bool CanBuyProduct(int number)
@@ -136,27 +137,28 @@ namespace VendingMachine.UI
             _machine.Insert(coin);
 
             OnPropertyChanged(GetName.Of(this, t => t.Balance));
+            OnPropertyChanged(GetName.Of(this, t => t.CustomerTotal));
+
             Increase<Coin, IPileViewModelOf<Coin>>(MachineCoins, 
                                                    c => c.Item == coin, 
                                                    () => new CoinPile(coin, 0));
         }
 
-        public Money Balance
+        public string Balance
         {
             get
             {
-                return _machine.Balance;
+                return  _machine.Balance.ToUIString();
             }
         }
 
-        public string Title
+        public string CustomerTotal
         {
             get
             {
-                return "It's alive!";
+                return _customerWallet.Total.ToUIString();
             }
         }
-
         
         public event PropertyChangedEventHandler PropertyChanged;
 

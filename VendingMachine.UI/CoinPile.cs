@@ -21,7 +21,13 @@ namespace VendingMachine.UI
         {
         }
 
-        public Coin Coin {get{ return Item;}}
+        public string Money
+        {
+            get
+            {
+                return Item.Value.ToUIString();
+            }
+        }
 
         private static string GetImagePath(Coin coin)
         {

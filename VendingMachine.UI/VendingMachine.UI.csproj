@@ -70,6 +70,7 @@
     <Compile Include="IInteractionService.cs" />
     <Compile Include="IPileViewModelOf.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="MoneyFormatter.cs" />
     <Compile Include="PileViewModelOf.cs" />
     <Compile Include="ProductPile.cs" />
     <Compile Include="ShowCaseItemViewModel.cs" />

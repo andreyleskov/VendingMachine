@@ -37,6 +37,14 @@ namespace VendingMachine.UI
 
         public Money Cost { get { return _item.Cost; } }
 
+        public string Money
+        {
+            get
+            {
+                return Cost.ToUIString();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged = (s, a) => { };
      
         public IProduct Item { get {return Product;} }
