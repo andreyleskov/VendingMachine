@@ -2,6 +2,16 @@
 {
     public class Tea : IProduct
     {
-        public string Name {  get { return "Чай"; } }
+        #region Public Properties
+
+        public string Name
+        {
+            get
+            {
+                return "Чай";
+            }
+        }
+
+        #endregion
     }
 }

@@ -4,9 +4,13 @@ namespace VendingMachine.Domain
 
     public class MoneyCurrencyMismatchException : Exception
     {
-        public MoneyCurrencyMismatchException():base("Виды валют не совпадают")
+        #region Constructors and Destructors
+
+        public MoneyCurrencyMismatchException()
+            : base("Виды валют не совпадают")
         {
-        
         }
+
+        #endregion
     }
 }

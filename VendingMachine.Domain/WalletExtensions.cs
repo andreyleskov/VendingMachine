@@ -6,11 +6,15 @@
 
     public static class WalletExtensions
     {
+        #region Public Methods and Operators
+
         public static Coin GetCoin(this IWallet wallet, Money value)
         {
-            var coins = wallet.GetMoney(value);
-            if(coins.Length != 1) 
+            Coin[] coins = wallet.GetMoney(value);
+            if (coins.Length != 1)
+            {
                 throw new NotAnoughCoinsException();
+            }
 
             return coins.First();
         }
@@ -19,5 +23,7 @@
         {
             return GetCoin(wallet, coin.Value);
         }
+
+        #endregion
     }
 }

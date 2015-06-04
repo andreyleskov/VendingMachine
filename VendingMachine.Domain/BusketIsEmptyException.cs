@@ -4,9 +4,13 @@ namespace VendingMachine.Domain
 
     public class BusketIsEmptyException : Exception
     {
-        public BusketIsEmptyException():base("Диспенсер товаров пуст")
+        #region Constructors and Destructors
+
+        public BusketIsEmptyException()
+            : base("Диспенсер товаров пуст")
         {
-        
         }
+
+        #endregion
     }
 }

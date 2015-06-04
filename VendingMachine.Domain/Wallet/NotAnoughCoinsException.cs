@@ -4,9 +4,13 @@ namespace VendingMachine.Domain.Wallet
 
     public class NotAnoughCoinsException : Exception
     {
+        #region Constructors and Destructors
+
         public NotAnoughCoinsException()
             : base("Недостаточно монет для запрошенной суммы")
         {
         }
+
+        #endregion
     }
 }

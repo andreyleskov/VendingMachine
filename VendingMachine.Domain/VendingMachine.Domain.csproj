@@ -35,26 +35,21 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusketIsEmptyException.cs" />
-    <Compile Include="CantFindGradeValueException.cs" />
     <Compile Include="Coin.cs" />
-    <Compile Include="CoinGrade.cs" />
     <Compile Include="CoinsBuilder.cs" />
     <Compile Include="Currency.cs" />
+    <Compile Include="InvalidProductNumberException.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="IShowcaseItem.cs" />
     <Compile Include="IVendingMachine.cs" />
     <Compile Include="IWallet.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="MoneyCurrencyMismatchException.cs" />
-    <Compile Include="VendingMachine.cs" />
+    <Compile Include="NumpadVendingMachine.cs" />
+    <Compile Include="ProductIsOutOfStockException.cs" />
     <Compile Include="WalletExtensions.cs" />
     <Compile Include="Wallet\NotAnoughCoinsException.cs" />
     <Compile Include="Wallet\NotAnoughMoneyException.cs" />

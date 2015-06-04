@@ -2,6 +2,16 @@ namespace VendingMachine.Domain.Products
 {
     public class Juice : IProduct
     {
-        public string Name { get { return "Сок"; } }
+        #region Public Properties
+
+        public string Name
+        {
+            get
+            {
+                return "Сок";
+            }
+        }
+
+        #endregion
     }
 }

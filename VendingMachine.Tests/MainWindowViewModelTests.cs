@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VendingMachine.Tests.ViewModelTests
+﻿namespace VendingMachine.Tests
 {
+    using System.Linq;
+
     using Moq;
 
     using NUnit.Framework;
