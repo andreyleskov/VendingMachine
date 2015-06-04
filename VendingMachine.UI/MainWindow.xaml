@@ -10,7 +10,7 @@
         >
     <Window.Resources>
         <DataTemplate x:Key="CoinPileTemplate" DataType="UI:CoinPile">
-            <Grid ToolTip="Double click to insert coint into vending machine">
+            <Grid ToolTip="Нажмите дважды чтобы вставить монету в автомат">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -66,7 +66,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0">Кошелёк пользователя</Label>
+            <Label Grid.Row="0">Кошелёк покупателя</Label>
             <ListBox Grid.Row ="1" Name="CustomerWallet" 
                                    ItemsSource="{Binding CustomerCoins}"
                                    ItemContainerStyle="{StaticResource WalletListBoxItemStyle}">
@@ -105,13 +105,13 @@
                 </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate  DataType="UI:ShowCaseItemViewModel">
-                    <Grid ToolTip="Double click to buy product from vending machine">
+                    <Grid ToolTip="Нажмите дважды чтобы купить товар у автомата">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="10"/>
-                            <ColumnDefinition MinWidth="20"/>
-                            <ColumnDefinition MinWidth="25"/>
-                            <ColumnDefinition MinWidth="35"/>
-                            <ColumnDefinition MinWidth="60"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="60"/>
                              <ColumnDefinition MinWidth="20"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
@@ -132,8 +132,8 @@
 
         <Grid Grid.Row="2" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0">Приобретённые товары:</Label>
             <ListBox Name="CustomerProducts" ItemsSource="{Binding CustomerProducts}" Grid.Row="1">

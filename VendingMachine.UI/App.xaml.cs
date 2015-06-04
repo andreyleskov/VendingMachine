@@ -50,7 +50,7 @@ namespace  VendingMachine.UI
                                   .PileOf(Coin.Ten).Size(15)
                             .GetCoins());
 
-            var mainViewModel = new MainWindowViewModel(machine, machineWallet, customerWallet);
+            var mainViewModel = new MainWindowViewModel(machine, machineWallet, customerWallet, new SimpleInteractionService());
 
             return new MainWindow(){DataContext = mainViewModel};
         }

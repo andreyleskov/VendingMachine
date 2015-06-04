@@ -36,7 +36,11 @@ namespace VendingMachine.Tests.ViewModelTests
             var customerWallet = new MinCoinsWallet(Coin.One());
             var machineWallet = new MinCoinsWallet();
             var machine = new NumpadVendingMachine(machineWallet, null);
-            var viewModel = new MainWindowViewModel(machine,machineWallet,customerWallet);
+
+            var viewModel = new MainWindowViewModel(machine,
+                                                    machineWallet,
+                                                    customerWallet,
+                                                    new SimpleInteractionService());
 
             var customerCoinPile = viewModel.CustomerCoins.First();
             int amount = customerCoinPile.Amount;

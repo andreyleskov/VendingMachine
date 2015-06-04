@@ -13,11 +13,14 @@ namespace VendingMachine.UI
     using System.Runtime.Remoting;
     using System.Windows.Input;
     using VendingMachine.Domain;
+    using VendingMachine.Domain.Wallet;
 
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private readonly IVendingMachine _machine;
         private readonly IWallet _customerWallet;
+
+        private readonly IInteractionService _interactionService;
 
         public ObservableCollection<IPileViewModelOf<Coin>> MachineCoins { get; set; }
         public ObservableCollection<IPileViewModelOf<Coin>> CustomerCoins { get; set; }
@@ -25,13 +28,18 @@ namespace VendingMachine.UI
         public ObservableCollection<ShowCaseItemViewModel> MachineProducts { get; set; }
         public ObservableCollection<IPileViewModelOf<IProduct>> CustomerProducts { get; set; }
 
-        public ICommand PutCoinCommand { get; private set; }
+        public ICommand PutCoinCommand    { get; private set; }
         public ICommand BuyProductCommand { get; private set; }
-        public ICommand GetChangeCommand { get; private set; }
+        public ICommand GetChangeCommand  { get; private set; }
 
+        private const string BuyConfirmMessage = "Спасибо!";
 
-        public MainWindowViewModel(IVendingMachine machine, IWallet machineWallet, IWallet customerWallet)
+        public MainWindowViewModel(IVendingMachine machine,
+                                   IWallet machineWallet,
+                                   IWallet customerWallet,
+                                   IInteractionService interactionService)
         {
+            this._interactionService = interactionService;
             _machine = machine;
             _customerWallet = customerWallet;
 
@@ -68,7 +76,22 @@ namespace VendingMachine.UI
 
         private void BuyProduct(int number)
         {
-            var product = _machine.Sell(number);
+            IProduct product;
+            try
+            {
+                product = _machine.Sell(number);
+            }
+            catch (NotAnoughCoinsException exCoins)
+            {
+                _interactionService.Notify(exCoins.Message);
+                return;
+            }
+            catch (NotAnoughMoneyException exMoney)
+            {
+                _interactionService.Notify(exMoney.Message);
+                return;
+            }
+
             OnPropertyChanged(GetName.Of(this, t => t.Balance));
 
             this.Reduce<IProduct, ShowCaseItemViewModel>(MachineProducts,
@@ -77,6 +100,8 @@ namespace VendingMachine.UI
             this.Increase<IProduct, IPileViewModelOf<IProduct>>(CustomerProducts,
                                                                 p => this.Like(p.Item,product),
                                                                 () => new ProductPile(product,0));
+
+            _interactionService.Notify(BuyConfirmMessage);
         }
 
         private void Increase<T, U>(ICollection<U> collection,

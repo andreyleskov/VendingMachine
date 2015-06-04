@@ -4,7 +4,7 @@ namespace VendingMachine.Domain.Wallet
 
     public class NotAnoughMoneyException : Exception
     {
-        public NotAnoughMoneyException():base("Недостаточно денег")
+        public NotAnoughMoneyException():base("Недостаточно средств")
         {
             
         }

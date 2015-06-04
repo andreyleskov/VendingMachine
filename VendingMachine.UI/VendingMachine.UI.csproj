@@ -67,11 +67,13 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeMainWindowViewModel.cs" />
     <Compile Include="GetName.cs" />
+    <Compile Include="IInteractionService.cs" />
     <Compile Include="IPileViewModelOf.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="PileViewModelOf.cs" />
     <Compile Include="ProductPile.cs" />
     <Compile Include="ShowCaseItemViewModel.cs" />
+    <Compile Include="SimpleInteractionService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

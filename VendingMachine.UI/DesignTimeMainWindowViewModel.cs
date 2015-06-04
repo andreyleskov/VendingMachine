@@ -11,14 +11,14 @@
         {
            get{
                  var machineWallet = new MinCoinsWallet(CoinsBuilder.New().PileOf(Coin.One).Size(5)
-                                                                      .PileOf(Coin.Two).Size(4)
-                                                                      .PileOf(Coin.Five).Size(3)
-                                                                      .PileOf(Coin.Ten).Size(2)
+                                                                          .PileOf(Coin.Two).Size(4)
+                                                                          .PileOf(Coin.Five).Size(3)
+                                                                          .PileOf(Coin.Ten).Size(2)
                                                                .GetCoins());
 
                  var customerWallet = new MinCoinsWallet(CoinsBuilder.New().PileOf(Coin.One).Size(10)
-                                                                        .PileOf(Coin.Five).Size(3)
-                                                                        .PileOf(Coin.Ten).Size(20)
+                                                                           .PileOf(Coin.Five).Size(3)
+                                                                           .PileOf(Coin.Ten).Size(20)
                                                                  .GetCoins());
 
                  var machine = new NumpadVendingMachine(machineWallet, new[]
@@ -28,7 +28,7 @@
                                                                             ProductBusket.Of<Juice>(3,Money.Rub(30),1),
                                                                         });
 
-                 return new MainWindowViewModel(machine, machineWallet, customerWallet);
+                 return new MainWindowViewModel(machine, machineWallet, customerWallet, new SimpleInteractionService());
             }
         }
     }
