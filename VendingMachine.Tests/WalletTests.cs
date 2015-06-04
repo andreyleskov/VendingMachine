@@ -105,16 +105,7 @@ namespace VendingMachine.Tests
             var wallet = new MinCoinsWallet();
             var coinsToAdd = new[] { Coin.Five(), Coin.Five() };
             wallet.Put(coinsToAdd);
-            //TODO: убрать try
-            try
-            {
-                wallet.GetMoney(Money.Rub(1));
-            }
-            catch (NotAnoughCoinsException)
-            {
-                return;
-            }
-            Assert.Fail("Не было выброшено исключение при попытке снять сумму, которая не может быть скомплектованна имеющимися монетами");
+            Assert.Throws<NotAnoughCoinsException>(() => wallet.GetMoney(Money.Rub(1)),"Не было выброшено исключение при попытке снять сумму, которая не может быть скомплектованна имеющимися монетами");
         }
 
         [Test]
@@ -134,16 +125,7 @@ namespace VendingMachine.Tests
         public void Cant_get_money_from_empy_wallet()
         {
             var wallet = new MinCoinsWallet();
-            //TODO: убрать TODO
-            try
-            {
-                wallet.GetMoney(Coin.One().Value);
-            }
-            catch (NotAnoughMoneyException)
-            {
-                return;
-            }
-            Assert.Fail("Не было вброшено исключение при попытке взять деньги из пустого кошелька");
+            Assert.Throws<NotAnoughMoneyException>(() => wallet.GetMoney(Coin.One().Value),"Не было вброшено исключение при попытке взять деньги из пустого кошелька");
         }
     }
 }

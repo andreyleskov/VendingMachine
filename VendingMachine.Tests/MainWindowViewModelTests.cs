@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace VendingMachine.Tests.ViewModelTests
 {
+    using Moq;
+
     using NUnit.Framework;
 
     using Should;
@@ -20,7 +22,7 @@ namespace VendingMachine.Tests.ViewModelTests
         [Test]
         public void EmptyCoinPile_dissapears_from_customer_wallet()
         {
-            var viewModel = TestData.MainWindowViewModel;
+            var viewModel = CreateMainWindowViewModel();
             var customerCoinPile = viewModel.CustomerCoins.First();
             var machineCoins = viewModel.MachineCoins.Single(c => c.Item == customerCoinPile.Item);
             int amount = customerCoinPile.Amount;
@@ -28,6 +30,11 @@ namespace VendingMachine.Tests.ViewModelTests
                 viewModel.PutCoinCommand.Execute(customerCoinPile);
 
             viewModel.CustomerCoins.ShouldNotContain(customerCoinPile);
+        }
+
+        private static MainWindowViewModel CreateMainWindowViewModel()
+        {
+            return TestData.AdjustableMainWindowViewModel(Mock.Of<IInteractionService>());
         }
 
         [Test]
@@ -55,18 +62,18 @@ namespace VendingMachine.Tests.ViewModelTests
         [Test]
         public void Customer_balance_changes_after_coin_insert()
         {
-            var viewModel = TestData.MainWindowViewModel;
+            var viewModel = CreateMainWindowViewModel();
             var customerCoinPile = viewModel.CustomerCoins.First();
             viewModel.PutCoinCommand.Execute(customerCoinPile);
             viewModel.PutCoinCommand.Execute(customerCoinPile);
             viewModel.PutCoinCommand.Execute(customerCoinPile);
 
-            viewModel.Balance.ShouldEqual(customerCoinPile.Item.Value * 3);
+            viewModel.Balance.ShouldEqual((customerCoinPile.Item.Value * 3).ToUIString());
         }
 
         private static MainWindowViewModel GetModelWithCoins()
         {
-            var viewModel = TestData.MainWindowViewModel;
+            var viewModel = CreateMainWindowViewModel();
             var coinPile = new CoinPile(Coin.Ten(), 10);
             for (int i = 0; i < 10; i++)
                 viewModel.PutCoinCommand.Execute(coinPile);

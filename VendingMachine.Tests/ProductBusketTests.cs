@@ -9,7 +9,6 @@
     public class ProductBusketTests
     {
 
-        //TODO: убрать try\catch
         [Test]
         public void Cant_dispense_more_than_existing_products()
         {
@@ -18,28 +17,26 @@
 
             busket.Dispence();
 
-            try
-            {
-                busket.Dispence();
-            }
-            catch (BusketIsEmptyException)
-            {
-                return;
-            }
-            Assert.Fail("Не было выброшено исключение при выдаче из пустого диспенсера");
+            Assert.Throws<BusketIsEmptyException>(() => busket.Dispence(), "Не было выброшено исключение при выдаче из пустого диспенсера");
         }
 
-        //TODO: разделить на два теста
         [Test]
-        public void Emptied_busket_has_valid_properies()
+        public void Emptied_busket_has_null_product()
         {
             var busket = new ProductBusket(1, new Money(Currency.Fake, 1));
             busket.Add(new Tea());
             busket.Dispence();
             Assert.IsNull(busket.Product,"После выдачи последнего продукта в диспенсере остался демонстрационный продукт");
-            Assert.AreEqual(0, busket.Amount,"После выдачи последнего продукта в диспенсере неверный показатель остатка");
         }
 
+        [Test]
+        public void Emptied_busket_has_zero_amount()
+        {
+            var busket = new ProductBusket(1, new Money(Currency.Fake, 1));
+            busket.Add(new Tea());
+            busket.Dispence();
+            Assert.AreEqual(0, busket.Amount, "После выдачи последнего продукта в диспенсере неверный показатель остатка");
+        }
 
         [Test]
         public void Busket_dispense_added_product()
@@ -80,21 +77,12 @@
         }
 
 
-        //TODO: убрать try\catch
         [Test]
         public void Cant_dispense_from_empty_busket()
         {
             var busket = new ProductBusket(1, new Money(Currency.Fake, 1));
 
-            try
-            {
-                busket.Dispence();
-            }
-            catch (BusketIsEmptyException)
-            {
-                return;
-            }
-            Assert.Fail("Не было выброшено исключение при выдаче из пустого диспенсера");
+            Assert.Throws<BusketIsEmptyException>(() => busket.Dispence(),"Не было выброшено исключение при выдаче из пустого диспенсера");
         }
     }
 }

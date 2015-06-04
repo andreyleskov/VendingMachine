@@ -100,7 +100,7 @@ namespace VendingMachine.Domain
             GuardCurrency(a, b);
             return a.Value >= b.Value;
         }
-        //TODO: proper implementation
+
         public override bool Equals(object obj)
         {
             if(!(obj is Money)) return false;
@@ -109,7 +109,6 @@ namespace VendingMachine.Domain
             return this.Currency.Equals(otherMoney.Currency) && otherMoney.Value.Equals(this.Value);
         }
 
-        //TODO: proper implementation
         public override int GetHashCode()
         {
             return this.Currency.GetHashCode() ^ this.Value.GetHashCode();
